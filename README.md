@@ -132,7 +132,6 @@ React.createClass({
   }
 
 });
-
 TODO
 
 Support images
@@ -161,11 +160,10 @@ console.error = (function(_error) {
     }
   };
 })(console.error);
-
 Contribute
 
  happy to take pull requests for bug-fixes and improvements (and tests). If you have a feature you want to implement it's probably a good idea to open an issue first to see if it's already being worked on. Please match the code style of the rest of the project (ESLint should enforce this) and please include tests. Thanks!
 
 Run the Demo
 
-Clone this project. Run npm install. Run npm run build-dist."# react-richtext" 
+Clone this project. Run npm install. Run npm run build-dist.
