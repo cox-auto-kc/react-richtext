@@ -168,4 +168,4 @@ Contribute
 
 Run the Demo
 
-Clone this project. Run npm install. Run npm run build-dist.
+Clone this project. Run npm install. Run npm run build-dist."# react-richtext" 
