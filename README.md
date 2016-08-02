@@ -2,9 +2,9 @@
 
 This is a UI component built completely in React that is meant to be a full-featured textarea replacement similar to [CKEditor][ckeditor], [TinyMCE][tinymce] and other [rich text "WYSIWYG" editors][rte]. It's based on the excellent, open source [Draft.js][draft-js] from Facebook which is performant and production-tested.
 
-## Fork notice
+## Fork Notice
 
-This project is originally forked from [react-rte](https://github.com/sstur/react-rte).
+This project is a fork of [react-rte](https://github.com/sstur/react-rte).
 
 ## Getting Started
 
