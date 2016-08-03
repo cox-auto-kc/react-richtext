@@ -1,6 +1,6 @@
 {
   "name": "react-richtext",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React Rich Text Editor",
   "main": "dist/react-rte.js",
   "scripts": {
@@ -64,9 +64,7 @@
     "richtext",
     "editor"
   ],
-
   "author": "Cox Automotive KC",
   "license": "MIT",
   "homepage": "https://github.com/cox-auto-kc/react-richtext"
-
 }
