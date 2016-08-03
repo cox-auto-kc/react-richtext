@@ -1,11 +1,9 @@
-/* @flow */
-
 import {ContentBlock, EditorState, genKey} from 'draft-js';
 
 export default function insertBlockAfter(
   editorState: EditorState,
   blockKey: string,
-  newType: string,
+  newType: string
 ): EditorState {
   let content = editorState.getCurrentContent();
   let blockMap = content.getBlockMap();
@@ -18,11 +16,11 @@ export default function insertBlockAfter(
     type: newType,
     text: '',
     characterList: block.getCharacterList().slice(0, 0),
-    depth: 0,
+    depth: 0
   });
   let newBlockMap = blocksBefore.concat(
     [[blockKey, block], [newBlockKey, newBlock]],
-    blocksAfter,
+    blocksAfter
   ).toOrderedMap();
   let selection = editorState.getSelection();
   let newContent = content.merge({

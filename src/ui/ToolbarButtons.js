@@ -14,6 +14,7 @@ import {
 
 import Button from './Button';
 
+import styles from '../../assets/styles';
 
 class ToolbarButtons extends Component{
     constructor(props) {
@@ -30,7 +31,7 @@ class ToolbarButtons extends Component{
         let {
             basicButtonsSrc,
             editorState
-        } = this.props;
+            } = this.props;
 
         let Buttons = basicButtonsSrc.map(function(v, key){
 
@@ -47,15 +48,15 @@ class ToolbarButtons extends Component{
             let Buttons =
                 buttonsConfig.map((type, index) => (
 
-                <Button
-                    key={String(index)}
-                    isActive={(buttonsStyle ==='inline')? currentStyle.has(type.style) :(buttonsStyle==='block')? (type.style) === blockType : ''}
-                    onToggle={toggleStyles}
-                    styles={type.style}
-                    label={type.label}
-                    customColor={''}
-                />
-            ));
+                    <Button
+                        key={String(index)}
+                        isActive={(buttonsStyle ==='inline')? currentStyle.has(type.style) :(buttonsStyle==='block')? (type.style) === blockType : ''}
+                        onToggle={toggleStyles}
+                        styles={type.style}
+                        label={type.label}
+                        customColor={''}
+                    />
+                ));
 
             return (
                 <span key={ButtonKey}>{Buttons}</span>
@@ -66,22 +67,25 @@ class ToolbarButtons extends Component{
     };
 
     render(){
+        let {toolbarButtonsStyles} = this.props;
         let renderButtons = this.buttons();
-
         return (
-            <div >
+            <div style={toolbarButtonsStyles.baseContainer}>
                 {renderButtons}
             </div>
-    );
+        );
     }
 }
 
 ToolbarButtons.propTypes = {
     basicButtonsSrc: PropTypes.array,
+    toolbarButtonsStyles: PropTypes.object,
     editorState: PropTypes.object,
 };
 ToolbarButtons.defaultProps = {
     basicButtonsSrc: MASTER_EDITOR.basicButtons,
+    //toolbarButtonsStyles: styles.toolbarButtonsStyles,
+    toolbarButtonsStyles: Object.assign({}, styles.baseStyles, styles.toolbarButtonsStyles),
 };
 
 export default ToolbarButtons;

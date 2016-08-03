@@ -1,11 +1,9 @@
-/* @flow */
-
 import {EditorState} from 'draft-js';
 
 export default function changeBlockDepth(
   editorState: EditorState,
   blockKey: string,
-  newDepth: number,
+  newDepth: number
 ): EditorState {
   let content = editorState.getCurrentContent();
   let block = content.getBlockForKey(blockKey);

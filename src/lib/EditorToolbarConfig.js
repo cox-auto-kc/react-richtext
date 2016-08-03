@@ -6,7 +6,7 @@ export const INLINE_STYLE_BUTTONS = [
   {label: 'Monospace', style: 'CODE'},
   {label: 'LeftIndent', style: 'leftindent'},
   {label: 'RightIndent', style: 'rightindent'},
- ];
+];
 
 export const BLOCK_TYPE_DROPDOWN = [
   {label: '', style: ''},
@@ -48,32 +48,32 @@ export const INLINE_TYPE_FONTSIZEDROPDOWN = [
 ];
 
 export const INLINE_TYPE_COLORDROPDOWN = [
-  {label: 'Black', style: 'BLACK'},
-  {label: 'Gray', style: 'GRAY'},
-  {label: 'Red', style: 'RED'},
-  {label: 'Green', style: 'GREEN'},
-  {label: 'Blue', style: 'BLUE'},
-  {label: 'Yellow', style: 'YELLOW'},
-  {label: 'Aqua', style: 'AQUA'},
-  {label: 'Coral', style: 'CORAL'},
-  {label: 'White', style: 'WHITE'},
-  {label: 'Orchid', style: 'ORCHID'},
-  {label: 'DarkMagenta', style: 'DARKMAGENTA'},
-  {label: 'LightSkyBlue', style: 'LIGHTSKYBULE'},
-  {label: 'GreenYellow', style: 'GREENYELLOW'},
-  {label: 'SlateBlue', style: 'SLATEBLUE'},
-  {label: 'Turquoise', style: 'TURQUOISE'},
-  {label: 'Sienna', style: 'SIENNA'},
-  {label: 'Plum', style: 'PLUM'},
-  {label: 'PeachPuff', style: 'PEACHPUFF'},
-  {label: 'PaleGreen ', style: 'PALEGREEN'},
-  {label: 'PaleTurquoise', style: 'PALETURQUOISE'},
-  {label: 'Olive', style: 'OLIVE'},
-  {label: 'Peru', style: 'PERU'},
-  {label: 'Salmon', style: 'SALMON'},
-  {label: 'Navy', style: 'NAVY'},
-  {label: 'Moccasin', style: 'MOCCASIN'},
-  ];
+  {label: 'Black', style: 'BLACK', hex: '#000'},
+  {label: 'Gray', style: 'GRAY', hex: '#808080'},
+  {label: 'Red', style: 'RED', hex: '#FF0000'},
+  {label: 'Green', style: 'GREEN', hex: '#00FF00'},
+  {label: 'Blue', style: 'BLUE', hex: '#0000FF'},
+  {label: 'Yellow', style: 'YELLOW', hex: '#FFFF00'},
+  {label: 'Aqua', style: 'AQUA', hex: '#00FFFF'},
+  {label: 'Coral', style: 'CORAL', hex: '#FF7F50'},
+  {label: 'White', style: 'WHITE', hex: '#FFFFFF'},
+  {label: 'Orchid', style: 'ORCHID', hex: '#DA70D6'},
+  {label: 'DarkMagenta', style: 'DARKMAGENTA', hex: '#8B008B'},
+  {label: 'LightSkyBlue', style: 'LIGHTSKYBULE', hex: '#87CEFA'},
+  {label: 'GreenYellow', style: 'GREENYELLOW', hex: '#ADFF2F'},
+  {label: 'SlateBlue', style: 'SLATEBLUE', hex: '#6A5ACD'},
+  {label: 'Turquoise', style: 'TURQUOISE', hex: '#40E0D0'},
+  {label: 'Sienna', style: 'SIENNA', hex: '#A0522D'},
+  {label: 'Plum', style: 'PLUM', hex: '#DDA0DD'},
+  {label: 'PeachPuff', style: 'PEACHPUFF', hex: '#FFDAB9'},
+  {label: 'PaleGreen ', style: 'PALEGREEN', hex: '#98FB98'},
+  {label: 'PaleTurquoise', style: 'PALETURQUOISE', hex: '#AFEEEE'},
+  {label: 'Olive', style: 'OLIVE', hex: '#808000'},
+  {label: 'Peru', style: 'PERU', hex: '#CD853F'},
+  {label: 'Salmon', style: 'SALMON', hex: '#FA8072'},
+  {label: 'Navy', style: 'NAVY', hex: '#000080'},
+  {label: 'Moccasin', style: 'MOCCASIN', hex: '#FFE4B5'},
+];
 
 export const MASTER_EDITOR = {
   basicDropdowns: [
@@ -82,9 +82,12 @@ export const MASTER_EDITOR = {
     {label: 'Size', config: INLINE_TYPE_FONTSIZEDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
   ],
   basicButtons: [
-    { draftStyle:'inline', config: INLINE_STYLE_BUTTONS, blockMethod: 'getCurrentBlockType',changeMethod: 'toggleInlineStyle', },
-    { draftStyle:'block', config:  BLOCK_TYPE_BUTTONS, blockMethod: 'getCurrentBlockType',changeMethod: 'toggleBlockType', },
-  ]
+    {draftStyle:'inline', config: INLINE_STYLE_BUTTONS, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
+    {draftStyle:'block', config:  BLOCK_TYPE_BUTTONS, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
+  ],
+  popoverColors: [
+    {label: 'Color', iconName: 'color', config: INLINE_TYPE_COLORDROPDOWN, changeMethod: 'togglePopover', selectMethod: 'toggleInlineColorsStyle' },
+  ],
 };
 
 export default {

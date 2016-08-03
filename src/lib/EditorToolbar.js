@@ -1,6 +1,4 @@
-/* @flow */
 import {hasCommandModifier} from 'draft-js/lib/KeyBindingUtil';
-
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {EditorState, Entity, RichUtils, Modifier, AtomicBlockUtils, Editor, ContentState} from 'draft-js';
@@ -14,6 +12,7 @@ import {
 
 import {
     getFuncName,
+    togglePopover,
     getCurrentBlockType,
     toggleBlockType,
     toggleInlineStyle,
@@ -26,7 +25,7 @@ import {
     toggleInlineColorsStyle,
     undo,
     redo,
-    addMedia,
+    addImageLink,
     toggleshowColorInput,
     toggleshowImageInput,
     uploadImage,
@@ -34,34 +33,20 @@ import {
     insertImage
 } from '../functions/editorMethods';
 
-import PopoverIconButton from '../ui/PopoverIconButton';
-import PopoverColors from '../ui/ColorsPopover';
-
+import LinkImagePopover from '../ui/LinkImagePopover';
+import LinkInputPopover from '../ui/LinkInputPopover';
+import ToolbarButtons from '../ui/ToolbarButtons';
+import ColorsButtonPopover from '../ui/ColorsButtonPopover';
 import BasicDropdowns from '../ui/BasicDropdowns';
-import ToolbarButtons from './../ui/ToolbarButtons';
 import Button from '../ui/Button';
-
-//import getEntityAtCursor from './getEntityAtCursor';
-//import clearEntityForRange from './clearEntityForRange';
+import UndoRedo from '../ui/UndoRedo';
+import LocalImageUpload from '../ui/LocalImageUpload';
 import autobind from 'class-autobind';
-
-
-// $FlowIssue - Flow doesn't understand CSS Modules
-
-import type {EventEmitter} from 'events';
-
+import {EventEmitter} from 'events';
 import styles from '../../assets/styles';
+
 let editorToolbarStyles = styles.editorToolbarStyles;
 
-type ChangeHandler = (state: EditorState) => any;
-
-type Props = {
-    editorState: EditorState;
-keyEmitter: EventEmitter;
-onChange: ChangeHandler;
-focusEditor: Function;
-customColor: string;
-};
 
 export default class EditorToolbar extends Component {
     props: Props;
@@ -76,6 +61,7 @@ export default class EditorToolbar extends Component {
         };
         this.fileInput = (e) => this._fileInput(e);
         this._getFuncName = getFuncName.bind(this);
+        this._togglePopover = togglePopover.bind(this);
         this._getCurrentBlockType = getCurrentBlockType.bind(this);
         this._toggleBlockType = toggleBlockType.bind(this);
         this._toggleInlineStyle = toggleInlineStyle.bind(this);
@@ -88,7 +74,7 @@ export default class EditorToolbar extends Component {
         this._toggleInlineColorsStyle = toggleInlineColorsStyle.bind(this);
         this._undo = undo.bind(this);
         this._redo = redo.bind(this);
-        this._addMedia = addMedia.bind(this);
+        this._addImageLink = addImageLink.bind(this);
         this._toggleshowColorInput = toggleshowColorInput.bind(this);
         this._toggleshowImageInput = toggleshowImageInput.bind(this);
         this._uploadImage = uploadImage.bind(this);
@@ -99,8 +85,7 @@ export default class EditorToolbar extends Component {
     componentWillMount() {
         // Technically, we should also attach/detach event listeners when the
         // `keyEmitter` prop changes.
-        // console.log(this.props.toolbarColor);
-        this.props.keyEmitter.on('keypress', this._onKeypress);
+       this.props.keyEmitter.on('keypress', this._onKeypress);
     }
 
     componentWillUnmount() {
@@ -122,133 +107,45 @@ export default class EditorToolbar extends Component {
                     editorState={this.props.editorState}
                     onChange={this.props.onChange}
                 />
-                {this._renderUndoRedo()}
 
-                {this._renderlocalImages()}
+                <LinkInputPopover
+                    label={"Link"}
+                    editorState={this.props.editorState}
+                    entityLink = {ENTITY_TYPE}
+                    onChange={this.props.onChange}
+                />
+
+                <ColorsButtonPopover
+                    popoverColorsSrc={MASTER_EDITOR.popoverColors}
+                    editorState={this.props.editorState}
+                    onChange={this.props.onChange}
+                />
+
+                <LinkImagePopover
+                    label={"Image"}
+                    editorState={this.props.editorState}
+                    onChange={this.props.onChange}
+                />
+
+                <UndoRedo
+                    label={"Undo"}
+                    editorState={this.props.editorState}
+                    onChange={this.props.onChange}
+                />
+
+                <LocalImageUpload
+                    label={"LocalImage"}
+                    editorState={this.props.editorState}
+                    onChange={this.props.onChange}
+                />
 
             </div>
         );
     }
-
-    _renderImages():React.Element {
-        let blockType = this._getCurrentBlockType();
-        return (
-            <span>
-                <PopoverIconButton
-                    label="Image"
-                    iconName="image"
-                    showPopover={this.state.showImageInput}
-                    onTogglePopover={this._toggleshowImageInput}
-                    onSubmit={this._addMedia}
-                    customColor={this.props.customColor}
-                />
-            </span>
-        );
-    }
-
-    _renderlocalImages():React.Element {
-        let blockType = this._getCurrentBlockType();
-        return (
-            <span>
-                <input type="file" ref="fileInput" style={{display: 'none'}}
-                       onChange={this._fileInput} />
-                <Button
-                    label="LocalImage"
-                    iconName="localimage"
-                    selected ={blockType}
-                    onClick={this._uploadImage}
-                    customColor={this.props.customColor}
-                />
-            </span>
-        );
-    }
-
-    _renderColorButtons(): React.Element {
-        let {editorState} = this.props;
-        let selection = editorState.getSelection();
-        let entity = this._getEntityAtCursor();
-        let hasSelection = !selection.isCollapsed();
-        let currentStyle = editorState.getCurrentInlineStyle();
-        let buttons = INLINE_TYPE_COLORDROPDOWN.map((type, index) => (
-            <Button
-                key={String(index)}
-                isActive={currentStyle.has(type.style)}
-                label={type.label}
-                onToggle={this._toggleInlineColorsStyle}
-                styles={type.style}
-                colors={true}
-                customColor={this.props.customColor}
-            />
-        ));
-
-        return (
-            <span>
-                <PopoverColors
-                    label="Color"
-                    iconName="color"
-                    showPopover={this.state.showColorInput}
-                    buttons={buttons}
-                    onTogglePopover={this._toggleshowColorInput}
-                    customColor={this.props.customColor}
-                />
-            </span>
-        );
-    }
-
-    _renderLinkButtons(): React.Element {
-        let {editorState} = this.props;
-        let selection = editorState.getSelection();
-        let entity = this._getEntityAtCursor();
-        let hasSelection = !selection.isCollapsed();
-        let isCursorOnLink = (entity != null && entity.type === ENTITY_TYPE.LINK);
-        let shouldShowLinkButton = hasSelection || isCursorOnLink;
-        return (
-            <span>
-                <PopoverIconButton
-                    label="Link"
-                    iconName="link"
-                    isDisabled={!shouldShowLinkButton}
-                    showPopover={this.state.showLinkInput}
-                    onTogglePopover={this._toggleShowLinkInput}
-                    onSubmit={this._setLink}
-                    customColor={this.props.customColor}
-                />
-                <Button
-                    label="Remove Link"
-                    iconName="remove-link"
-                    isDisabled={!isCursorOnLink}
-                    onClick={this._removeLink}
-                    focusOnClick={false}
-                    customColor={this.props.customColor}
-                />
-            </span>
-        );
-    }
-
-    _renderUndoRedo(): React.Element {
-        let {editorState} = this.props;
-        let canUndo = editorState.getUndoStack().size !== 0;
-        let canRedo = editorState.getRedoStack().size !== 0;
-        return (
-            <span>
-                <Button
-                    label="Undo"
-                    iconName="undo"
-                    isDisabled={!canUndo}
-                    onClick={this._undo}
-                    focusOnClick={false}
-                    customColor={this.props.customColor}
-                />
-                <Button
-                    label="Redo"
-                    iconName="redo"
-                    isDisabled={!canRedo}
-                    onClick={this._redo}
-                    focusOnClick={false}
-                    customColor={this.props.customColor}
-                />
-            </span>
-        );
-    }
-
 }
+
+EditorToolbar.propTypes = {
+    keyEmitter : PropTypes.object,
+    onChange: PropTypes.func,
+    focusEditor: PropTypes.func,
+};

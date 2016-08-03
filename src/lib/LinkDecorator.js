@@ -1,19 +1,14 @@
-/* @flow */
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {Entity} from 'draft-js';
 import {ENTITY_TYPE} from 'draft-js-utils';
+import {ContentBlock} from 'draft-js';
 
-import type {ContentBlock} from 'draft-js';
-
-// TODO: Use a more specific type here.
-type ReactNode = any;
-
-type Props = {
-  children: ReactNode,
-  entityKey: string,
+let Props = {
+  children: PropTypes.node,
+  entityKey: PropTypes.string,
 };
 
-type EntityRangeCallback = (start: number, end: number) => void;
+ function EntityRangeCallback(start: number, end: number) : void{}
 
 function Link(props_: Props): React.Element {
   const {url} = Entity.get(props_.entityKey).getData();
@@ -34,5 +29,5 @@ function findLinkEntities(contentBlock: ContentBlock, callback: EntityRangeCallb
 
 export default {
   strategy: findLinkEntities,
-  component: Link,
+  component: Link
 };

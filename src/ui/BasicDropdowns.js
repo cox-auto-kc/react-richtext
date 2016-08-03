@@ -8,7 +8,7 @@ import {
     toggleInlineStyle } from '../functions/editorMethods';
 
 /*MASTER_EDITOR references the other DROPDOWN objects,
-they're not explicitly named in this file, only referenced via variables*/
+ they're not explicitly named in this file, only referenced via variables*/
 import {
     BLOCK_TYPE_DROPDOWN,
     INLINE_TYPE_FONTDROPDOWN,
@@ -37,7 +37,7 @@ class BasicDropdowns extends Component {
         let {
             basicDropdownSrc,
             basicDropdownsStyles,
-        } = this.props;
+            } = this.props;
 
         let dropdowns = basicDropdownSrc.map(function(v, key){
 
@@ -71,7 +71,7 @@ class BasicDropdowns extends Component {
         let {
             basicDropdownSrc,
             basicDropdownsStyles,
-        } = this.props;
+            } = this.props;
         let renderDropdowns = this.dropdowns();
         return (
             <div style={basicDropdownsStyles.dropdownContainer}>
@@ -99,3 +99,4 @@ BasicDropdowns.defaultProps = {
 };
 
 export default BasicDropdowns;
+

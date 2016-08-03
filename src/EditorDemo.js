@@ -1,21 +1,14 @@
-/* @flow */
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import RichTextEditor, {createEmptyValue} from './RichTextEditor';
 import {convertToRaw} from 'draft-js';
-import autobind from 'class-autobind';
-
 import type {EditorValue} from './RichTextEditor';
 
 
-type State = {
-  value: EditorValue;
-  format: string;
-};
 const styles={
   display:{
     color: '#0585c8',
     paddingTop:10,
-    },
+  },
   row:{
     height:100,
     width: '100%',
@@ -30,89 +23,88 @@ const styles={
   }
 
 };
-export default class EditorDemo extends Component {
-  props: Props;
-  state: State;
 
-  constructor() {
-    super(...arguments);
-    autobind(this);
-    this.state = {
+class EditorDemo extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+   this. state = {
       value: createEmptyValue(),
       format: 'html',
     };
-  }
+  };
 
-  render(): React.Element {
-    let {value, format} = this.state;
-    return (
-      <div className="editor-demo">
-         <div className="row">
-          <RichTextEditor
-            value={value}
-            onChange={this._onChange}
-           //toolbarColor={'#DDA0DD'}
-            placeholder="Type here ..."
-          />
-        </div>
 
-          <label className="radio-item" >
-            <input
-                style={styles.display}
-                type="radio"
-                name="format"
-                value="html"
-                checked={format === 'html'}
-                onChange={this._onChangeFormat}
-            />
-            <span className="label">HTML</span>
-          </label>
-          <label className="radio-item">
-            <input
-                style={styles.display}
-                type="radio"
-                name="format"
-                value="markdown"
-                checked={format === 'markdown'}
-                onChange={this._onChangeFormat}
-            />
-
-            <span className="label">Markdown</span>
-          </label>
-            <span className="btn-row" style={styles.log} onClick={this._logState} >Log State</span>
-
-        <div className="row">
-          <textarea
-              className="source"
-              placeholder="Editor Source"
-              value={value.toString(format)}
-              onChange={this._onChangeSource}
-              style={styles.row}
-          />
-        </div>
-
+render()
+{
+  return (
+    <div className="editor-demo">
+      <div className="row">
+        <RichTextEditor
+          value={this.state.value}
+          onChange={this.onChange.bind(this)}
+          //toolbarColor={'#00FF00'}
+          placeholder="Type here ..."
+        />
       </div>
-    );
-  }
 
-  _logState() {
+      <label className="radio-item" >
+        <input
+          style={styles.display}
+          type="radio"
+          name="format"
+          value="html"
+          checked={this.state.format === 'html'}
+          onChange={this.onChangeFormat.bind(this)}
+        />
+        <span className="label">HTML</span>
+      </label>
+      <label className="radio-item">
+        <input
+          style={styles.display}
+          type="radio"
+          name="format"
+          value="markdown"
+          checked={this.state.format === 'markdown'}
+          onChange={this.onChangeFormat.bind(this)}
+        />
+
+        <span className="label">Markdown</span>
+      </label>
+      <span className="btn-row" style={styles.log} onClick={this.logState.bind(this)} >Log State</span>
+
+      <div className="row">
+          <textarea
+            className="source"
+            placeholder="Editor Source"
+            value={this.state.value.toString(this.state.format)}
+            onChange={this.onChangeSource.bind(this)}
+            style={styles.row}
+          />
+      </div>
+    </div>
+
+  );
+}
+  logState() {
+    console.log(this.state.value);
     let editorState = this.state.value.getEditorState();
     let contentState = window.contentState = editorState.getCurrentContent().toJS();
     console.log(contentState);
   }
 
-  _logStateRaw() {
+  logStateRaw() {
     let editorState = this.state.value.getEditorState();
     let contentState = editorState.getCurrentContent();
     let rawContentState = window.rawContentState = convertToRaw(contentState);
     console.log(JSON.stringify(rawContentState));
   }
 
-  _onChange(value: EditorValue) {
+  onChange(value: EditorValue) {
     this.setState({value});
   }
 
-  _onChangeSource(event: Object) {
+  onChangeSource(event: Object) {
     let source = event.target.value;
     let oldValue = this.state.value;
     this.setState({
@@ -120,7 +112,9 @@ export default class EditorDemo extends Component {
     });
   }
 
-  _onChangeFormat(event: Object) {
+  onChangeFormat(event: Object) {
     this.setState({format: event.target.value});
   }
-}
+};
+
+export default EditorDemo;

@@ -1,11 +1,9 @@
-/* @flow */
-
 import {EditorState} from 'draft-js';
 
 export default function changeBlockType(
   editorState: EditorState,
   blockKey: string,
-  newType: string,
+  newType: string
 ): EditorState {
   let content = editorState.getCurrentContent();
   let block = content.getBlockForKey(blockKey);

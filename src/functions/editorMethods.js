@@ -40,10 +40,9 @@ export function toggleBlockType(blockType) {
 
 export function focusEditor() {
     // Hacky: Wait to focus the editor so we don't lose selection.
-    /*
     setTimeout(() => {
         this.props.focusEditor();
-    }, 50);*/
+    }, 50);
 }
 
 export function onKeypress(event, eventFlags) {
@@ -58,15 +57,42 @@ export function onKeypress(event, eventFlags) {
 }
 
 
-export function setLink(url: string) {
+export function handleKeyPress(event){
+    if(event.key == 'Enter'){
+        event.preventDefault();
+        this.setLink();
+    };
+}
+
+
+export function handleOnKeyPress(event){
+    if(event.key == 'Enter'){
+        event.preventDefault();
+        this.addImageLink();
+    };
+}
+
+export function updateLinkInputValue(e) {
+    this.setState({inputRef: e.target.value});
+}
+export function setLink() {
+    let url = this.state.inputRef;
     let {editorState} = this.props;
     let selection = editorState.getSelection();
     let entityKey = Entity.create(ENTITY_TYPE.LINK, 'MUTABLE', {url});
-    this.setState({showLinkInput: false});
     this.props.onChange(
         RichUtils.toggleLink(editorState, selection, entityKey)
     );
-    this._focusEditor();
+    this.togglePopover();
+}
+
+export function toggleLink(){
+    this.togglePopover();
+    let {editorState} = this.props;
+    let entity = getEntityAtCursor(editorState);
+    if (entity == null) {
+        this.setState({inputRef: ''});
+    };
 }
 
 export function removeLink() {
@@ -77,17 +103,18 @@ export function removeLink() {
         this.props.onChange(
             clearEntityForRange(editorState, blockKey, startOffset, endOffset)
         );
-    }
+    };
+    this.setState({inputRef: ''});
 }
 
-export function getEntity() {
+export function getEntity( ) {
     let {editorState} = this.props;
     let entity = getEntityAtCursor(editorState);
     return (entity == null) ? null : Entity.get(entity.entityKey);
 }
 
 
-export function toggleInlineColorsStyle(inlineStyle: string) {
+export function toggleInlineColorsStyle(inlineStyle) {
     let {editorState} = this.props;
     this.setState({showColorInput: false});
     this.props.onChange( RichUtils.toggleInlineStyle(
@@ -95,7 +122,7 @@ export function toggleInlineColorsStyle(inlineStyle: string) {
         inlineStyle
         )
     );
-    this._focusEditor();
+    this.togglePopover();
 }
 
 export function undo() {
@@ -112,108 +139,18 @@ export function redo() {
     );
 }
 
-export function addMedia(url: string) {
+export function addImageLink(url: string) {
+    url = this.state.inputRef;
     let {editorState} = this.props;
-    this.setState({showImageInput: false});
+    // this.setState({showImageInput: false});
     const entityKey = Entity.create('atomic', 'IMMUTABLE', {src:url});
     this.props.onChange(AtomicBlockUtils.insertAtomicBlock(
         editorState,
         entityKey,
         ' '
     ));
+    this.togglePopover();
 }
-
-export function toggleShowPopover(event: ?Object){
-    console.log(this);
-    let isShowing = this.state.showLinkInput;
-    // If this is a hide request, decide if we should focus the editor.
-    if (isShowing) {
-        let shouldFocusEditor = true;
-        if (event && event.type === 'click') {
-            // TODO: Use a better way to get the editor root node.
-            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
-            let {activeElement} = document;
-            let wasClickAway = (activeElement == null || activeElement === document.body);
-            if (!wasClickAway && !editorRoot.contains(activeElement)) {
-                shouldFocusEditor = false;
-            }
-        }
-        if (shouldFocusEditor) {
-            this.props.focusEditor();
-        }
-    }
-    this.setState({showLinkInput: !isShowing});
-}
-
-
-
-
-
-
-
-
-
-export function toggleshowColorInput(event: ?Object){
-    let isShowing = this.state.showColorInput;
-    if (isShowing) {
-        let shouldFocusEditor = true;
-        if (event && event.type === 'click') {
-            // TODO: Use a better way to get the editor root node.
-            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
-            let {activeElement} = document;
-            let wasClickAway = (activeElement == null || activeElement === document.body);
-            if (!wasClickAway && !editorRoot.contains(activeElement)) {
-                shouldFocusEditor = false;
-            }
-        }
-        if (shouldFocusEditor) {
-            this.props.focusEditor();
-        }
-    }
-    this.setState({showColorInput: !isShowing});
-}
-
-export function toggleshowImageInput(event: ?Object){
-    let isShowing = this.state.showImageInput;
-    if (isShowing) {
-        let shouldFocusEditor = true;
-        if (event && event.type === 'click') {
-            // TODO: Use a better way to get the editor root node.
-            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
-            let {activeElement} = document;
-            let wasClickAway = (activeElement == null || activeElement === document.body);
-            if (!wasClickAway && !editorRoot.contains(activeElement)) {
-                shouldFocusEditor = false;
-            }
-        }
-        if (shouldFocusEditor) {
-            this.props.focusEditor();
-        }
-    }
-    this.setState({showImageInput: !isShowing});
-}
-
-export function toggleShowLinkInput(event: ?Object) {
-    let isShowing = this.state.showLinkInput;
-    // If this is a hide request, decide if we should focus the editor.
-    if (isShowing) {
-        let shouldFocusEditor = true;
-        if (event && event.type === 'click') {
-            // TODO: Use a better way to get the editor root node.
-            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
-            let {activeElement} = document;
-            let wasClickAway = (activeElement == null || activeElement === document.body);
-            if (!wasClickAway && !editorRoot.contains(activeElement)) {
-                shouldFocusEditor = false;
-            }
-        }
-        if (shouldFocusEditor) {
-            this.props.focusEditor();
-        }
-    }
-    this.setState({showLinkInput: !isShowing});
-}
-
 
 export function uploadImage(){
     this.refs.fileInput.click();
@@ -222,9 +159,8 @@ export function uploadImage(){
 export function fileInput(e){
     const fileList = e.target.files;
     const file = fileList[0];
-    this._insertImage(file);
+    this.insertImage(file);
 }
-
 
 export function insertImage(file) {
     let {editorState} = this.props;
@@ -236,3 +172,70 @@ export function insertImage(file) {
     ));
 }
 
+export function togglePopover(){
+    let isShowing = this.state.showPopover;
+    this.setState({showPopover: !isShowing})
+}
+
+export function toggleshowColorInput(event){
+    let isShowing = this.state.showColorInput;
+    if (isShowing) {
+        let shouldFocusEditor = true;
+        if (event && event.type === 'click') {
+            // TODO: Use a better way to get the editor root node.
+            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
+            let {activeElement} = document;
+            let wasClickAway = (activeElement == null || activeElement === document.body);
+            if (!wasClickAway && !editorRoot.contains(activeElement)) {
+                //shouldFocusEditor = false;
+            }
+        }
+        if (shouldFocusEditor) {
+            //this.props.focusEditor();
+        }
+    }
+    this.setState({showColorInput: !isShowing});
+}
+
+
+
+export function toggleshowImageInput(event){
+    let isShowing = this.state.showImageInput;
+    if (isShowing) {
+        let shouldFocusEditor = true;
+        if (event && event.type === 'click') {
+            // TODO: Use a better way to get the editor root node.
+            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
+            let {activeElement} = document;
+            let wasClickAway = (activeElement == null || activeElement === document.body);
+            if (!wasClickAway && !editorRoot.contains(activeElement)) {
+                //shouldFocusEditor = false;
+            }
+        }
+        if (shouldFocusEditor) {
+            //this.props.focusEditor();
+        }
+    }
+    this.setState({showImageInput: !isShowing});
+}
+
+export function toggleShowLinkInput(event) {
+    let isShowing = this.state.showLinkInput;
+    // If this is a hide request, decide if we should focus the editor.
+    if (isShowing) {
+        let shouldFocusEditor = true;
+        if (event && event.type === 'click') {
+            // TODO: Use a better way to get the editor root node.
+            let editorRoot = ReactDOM.findDOMNode(this).parentNode;
+            let {activeElement} = document;
+            let wasClickAway = (activeElement == null || activeElement === document.body);
+            if (!wasClickAway && !editorRoot.contains(activeElement)) {
+                //shouldFocusEditor = false;
+            }
+        }
+        if (shouldFocusEditor) {
+            //this.props.focusEditor();
+        }
+    }
+    this.setState({showLinkInput: !isShowing});
+}

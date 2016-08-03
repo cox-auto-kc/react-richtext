@@ -1,15 +1,13 @@
-/* @flow */
 import {ContentState, EditorState} from 'draft-js';
 import {stateToHTML} from 'draft-js-export-html';
 import {stateFromHTML} from 'draft-js-import-html';
 import {stateToMarkdown} from 'draft-js-export-markdown';
 import {stateFromMarkdown} from 'draft-js-import-markdown';
+import {DraftDecoratorType as Decorator} from 'draft-js/lib/DraftDecoratorType';
 
-import type {DraftDecoratorType as Decorator} from 'draft-js/lib/DraftDecoratorType';
-
-type StringMap = {[key: string]: string};
-
+var StringMap = {};
 export default class EditorValue {
+
   _editorState: EditorState;
   _cache: StringMap;
 
@@ -45,7 +43,7 @@ export default class EditorValue {
     return new EditorValue(editorState, {[format]: markup});
   }
 
-  static createEmpty(decorator: ?Decorator): EditorValue {
+  static createEmpty(decorator: Decorator): EditorValue {
     let editorState = EditorState.createEmpty(decorator);
     return new EditorValue(editorState);
   }
@@ -54,7 +52,7 @@ export default class EditorValue {
     return new EditorValue(editorState);
   }
 
-  static createFromString(markup: string, format: string, decorator: ?Decorator): EditorValue {
+  static createFromString(markup: string, format: string, decorator: Decorator): EditorValue {
     let contentState = fromString(markup, format);
     let editorState = EditorState.createWithContent(contentState, decorator);
     return new EditorValue(editorState, {[format]: markup});

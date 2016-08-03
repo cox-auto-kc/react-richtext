@@ -1,14 +1,13 @@
-/* @flow */
-import type {EditorState, ContentBlock} from 'draft-js';
+import {EditorState, ContentBlock} from 'draft-js';
 
-export type EntityDescription = {
-  entityKey: string;
-  blockKey: string;
-  startOffset: number;
-  endOffset: number;
-};
+/*let EntityDescription = {
+  entityKey: string,
+  blockKey: string,
+  startOffset: number,
+  endOffset: number
+};*/
 
-function getEntityAtOffset(block: ContentBlock, offset: number): ?EntityDescription {
+function getEntityAtOffset(block: ContentBlock, offset: number): EntityDescription {
   let entityKey = block.getEntityAt(offset);
   if (entityKey == null) {
     return null;
@@ -26,11 +25,11 @@ function getEntityAtOffset(block: ContentBlock, offset: number): ?EntityDescript
     entityKey,
     blockKey: block.getKey(),
     startOffset,
-    endOffset: endOffset + 1,
+    endOffset: endOffset + 1
   };
 }
 
-export default function getEntityAtCursor(editorState: EditorState): ?EntityDescription {
+export default function getEntityAtCursor(editorState: EditorState): EntityDescription {
   let selection = editorState.getSelection();
   let startKey = selection.getStartKey();
   let startBlock = editorState.getCurrentContent().getBlockForKey(startKey);
@@ -54,6 +53,6 @@ export default function getEntityAtCursor(editorState: EditorState): ?EntityDesc
     entityKey: startEntityKey,
     blockKey: startBlock.getKey(),
     startOffset: startOffset,
-    endOffset: endOffset,
+    endOffset: endOffset
   };
 }

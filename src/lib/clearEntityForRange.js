@@ -1,11 +1,10 @@
-/* @flow */
 import {CharacterMetadata, EditorState} from 'draft-js';
 
 export default function clearEntityForRange(
   editorState: EditorState,
   blockKey: string,
   startOffset: number,
-  endOffset: number,
+  endOffset: number
 ): EditorState {
   let contentState = editorState.getCurrentContent();
   let blockMap = contentState.getBlockMap();
