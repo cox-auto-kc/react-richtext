@@ -14,7 +14,7 @@ import styles from '../../assets/styles';
 
 class LinkImagePopover extends Component {
     constructor(props) {
-        super(props, ...arguments);
+        super(props);
         this.state ={
             showPopover: false,
             inputRef: '',

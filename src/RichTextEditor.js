@@ -9,7 +9,7 @@ import isSoftNewlineEvent from 'draft-js/lib/isSoftNewlineEvent';
 import EditorToolbar from './lib/EditorToolbar';
 import EditorValue from './lib/EditorValue';
 import LinkDecorator from './lib/LinkDecorator';
-import {EventEmitter} from 'events';
+//import {EventEmitter} from 'events';
 import {BLOCK_TYPE} from 'draft-js-utils';
 import ImageComponent from './lib/ImageComponent';
 import styles from '../assets/styles';
@@ -39,10 +39,10 @@ export default class RichTextEditor extends Component {
     return (
       <div style={richTextEditorStyles.richtext}>
         <EditorToolbar className="toolbar"
-          keyEmitter={this._keyEmitter}
+          //keyEmitter={this._keyEmitter}
           editorState={editorState}
           onChange={this._onChange.bind(this)}
-          focusEditor={this._focus.bind(this)}
+          //focusEditor={this._focus.bind(this)}
         />
 
         <div style={richTextEditorStyles.editor}>
