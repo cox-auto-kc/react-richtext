@@ -12,7 +12,6 @@ import {
 import Button from './Button';
 import styles from '../../assets/styles';
 
-
 class LinkImagePopover extends Component {
     constructor(props) {
         super(props, ...arguments);
