@@ -75,6 +75,34 @@ export const INLINE_TYPE_COLORDROPDOWN = [
   {label: 'Moccasin', style: 'MOCCASIN', hex: '#FFE4B5'},
 ];
 
+export const FILL_TYPE_COLORDROPDOWN = [
+  {label: 'Black', style: 'fillBLACK', hex: '#000'},
+  {label: 'Gray', style: 'fillGRAY', hex: '#808080'},
+  {label: 'Red', style: 'fillRED', hex: '#FF0000'},
+  {label: 'Green', style: 'fillGREEN', hex: '#00FF00'},
+  {label: 'Blue', style: 'fillBLUE', hex: '#0000FF'},
+  {label: 'Yellow', style: 'fillYELLOW', hex: '#FFFF00'},
+  {label: 'Aqua', style: 'fillAQUA', hex: '#00FFFF'},
+  {label: 'Coral', style: 'fillCORAL', hex: '#FF7F50'},
+  {label: 'White', style: 'fillWHITE', hex: '#FFFFFF'},
+  {label: 'Orchid', style: 'fillORCHID', hex: '#DA70D6'},
+  {label: 'DarkMagenta', style: 'fillDARKMAGENTA', hex: '#8B008B'},
+  {label: 'LightSkyBlue', style: 'fillLIGHTSKYBULE', hex: '#87CEFA'},
+  {label: 'GreenYellow', style: 'fillGREENYELLOW', hex: '#ADFF2F'},
+  {label: 'SlateBlue', style: 'fillSLATEBLUE', hex: '#6A5ACD'},
+  {label: 'Turquoise', style: 'fillTURQUOISE', hex: '#40E0D0'},
+  {label: 'Sienna', style: 'fillSIENNA', hex: '#A0522D'},
+  {label: 'Plum', style: 'fillPLUM', hex: '#DDA0DD'},
+  {label: 'PeachPuff', style: 'fillPEACHPUFF', hex: '#FFDAB9'},
+  {label: 'PaleGreen ', style: 'fillPALEGREEN', hex: '#98FB98'},
+  {label: 'PaleTurquoise', style: 'fillPALETURQUOISE', hex: '#AFEEEE'},
+  {label: 'Olive', style: 'fillOLIVE', hex: '#808000'},
+  {label: 'Peru', style: 'fillPERU', hex: '#CD853F'},
+  {label: 'Salmon', style: 'fillSALMON', hex: '#FA8072'},
+  {label: 'Navy', style: 'fillNAVY', hex: '#000080'},
+  {label: 'Moccasin', style: 'fillMOCCASIN', hex: '#FFE4B5'},
+];
+
 export const MASTER_EDITOR = {
   basicDropdowns: [
     {label: 'Paragraph', config: BLOCK_TYPE_DROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
@@ -86,7 +114,8 @@ export const MASTER_EDITOR = {
     {draftStyle:'block', config:  BLOCK_TYPE_BUTTONS, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
   ],
   popoverColors: [
-    {label: 'Color', iconName: 'color', config: INLINE_TYPE_COLORDROPDOWN, changeMethod: 'togglePopover', selectMethod: 'toggleInlineColorsStyle' },
+    {label: 'Color', iconName: 'color', config: INLINE_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleInlineColorsStyle' },
+    {label: 'Color', iconName: 'color', config: FILL_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleFillColorsStyle' },
   ],
 };
 

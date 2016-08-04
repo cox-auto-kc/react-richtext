@@ -107,16 +107,33 @@ export function removeLink() {
     this.setState({inputRef: ''});
 }
 
-export function getEntity( ) {
+export function getEntity() {
     let {editorState} = this.props;
     let entity = getEntityAtCursor(editorState);
     return (entity == null) ? null : Entity.get(entity.entityKey);
 }
 
+export function toggleColorsTrigger(key){
+    this.setState({
+        showPopover: true,
+        popoverKey: key
+    });
+}
 
 export function toggleInlineColorsStyle(inlineStyle) {
     let {editorState} = this.props;
-    this.setState({showColorInput: false});
+    this.props.onChange( RichUtils.toggleInlineStyle(
+        editorState,
+        inlineStyle
+        )
+    );
+    this.togglePopover();
+}
+
+export function toggleFillColorsStyle(inlineStyle) {
+    console.log(inlineStyle);
+    let {editorState} = this.props;
+
     this.props.onChange( RichUtils.toggleInlineStyle(
         editorState,
         inlineStyle
@@ -162,6 +179,7 @@ export function fileInput(e){
     this.insertImage(file);
 }
 
+
 export function insertImage(file) {
     let {editorState} = this.props;
     const entityKey = Entity.create('atomic', 'IMMUTABLE', {src: URL.createObjectURL(file)});
@@ -176,6 +194,7 @@ export function togglePopover(){
     let isShowing = this.state.showPopover;
     this.setState({showPopover: !isShowing})
 }
+
 
 export function toggleshowColorInput(event){
     let isShowing = this.state.showColorInput;

@@ -5,7 +5,7 @@ const styles={
             verticalAlign: 'top',
         },
         basePopoverBackdrop: {
-            position: 'absolute',
+            position: 'fixed',
             top: 0,
             bottom: 0,
             left: 0,
@@ -71,8 +71,9 @@ const styles={
     popoverColorsStyles: {
         popoverContainer: {
             position:'absolute',
+            zIndex: 2,
             width: '135px',
-            height: '135px',
+            height: '125px',
             background: '#fdfdfd',
             border: '1px solid #0585c8',
             borderRadius: '2px',
@@ -151,20 +152,20 @@ const styles={
         root: {
             display: 'inline-block',
             position: 'relative',
-            margin: '5px 5px 0 0',
-            padding: '3px 8px',
-            lineHeight: '20px',
+
+
+            lineHeight: '22px',
             verticalAlign: 'top',
             borderColor: '#0585c8',
             borderRadius: '3px',
-            border: '1px solid #0585c8',
+            border: '1px solid #0585c8'
         },
         select: {
             position: 'relative',
             zIndex: 2,
             display: 'inline-block',
             boxSizing: 'border-box',
-            height: '24px',
+            height: '30px',
             lineHeight: 'inherit',
             fontFamily: 'inherit',
             fontSize: 'inherit',
@@ -202,9 +203,10 @@ const styles={
         icon:{
             position: 'absolute',
             right: 5,
-            fill: '#0585c8',
+
         },
     },
+
 
 };
 
