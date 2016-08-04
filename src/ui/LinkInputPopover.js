@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import { MASTER_EDITOR } from '../lib/EditorToolbarConfig';
+//import { MASTER_EDITOR } from '../lib/EditorToolbarConfig'; //not currently needed as this is not controlled by config
+import {ENTITY_TYPE} from 'draft-js-utils';
 import {
     setLink,
     togglePopover,
@@ -9,8 +10,9 @@ import {
     handleOnKeyPress,
     getEntity,
 } from '../functions/editorMethods';
-import styles from '../../assets/styles';
+
 import Button from './Button';
+import styles from '../../assets/styles';
 
 class LinkInputPopover extends Component {
     constructor(props) {
@@ -117,6 +119,7 @@ LinkInputPopover.propTypes = {
 
 LinkInputPopover.defaultProps = {
     popoverLinkStyles: Object.assign({}, styles.baseStyles, styles.popoverLinkStyles),
+    entityLink: ENTITY_TYPE,
 };
 
 export default LinkInputPopover;

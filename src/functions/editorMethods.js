@@ -38,24 +38,6 @@ export function toggleBlockType(blockType) {
     );
 }
 
-export function focusEditor() {
-    // Hacky: Wait to focus the editor so we don't lose selection.
-    setTimeout(() => {
-        this.props.focusEditor();
-    }, 50);
-}
-
-export function onKeypress(event, eventFlags) {
-    // Catch cmd+k for use with link insertion.
-    if (hasCommandModifier(event) && event.keyCode === 75) {
-        // TODO: Ensure there is some text selected.
-        this.setState({showLinkInput: true});
-        this.setState({showColorInput: true});
-        this.setState({showImageInput: true});
-        eventFlags.wasHandled = true;
-    }
-}
-
 
 export function handleOnKeyPress(setFuncOnEnter, event){
     if(event.key == 'Enter'){
