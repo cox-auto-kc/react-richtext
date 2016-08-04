@@ -6,7 +6,7 @@ import {
     toggleLink,
     removeLink,
     updateLinkInputValue,
-    handleKeyPress,
+    handleOnKeyPress,
     getEntity,
 } from '../functions/editorMethods';
 import styles from '../../assets/styles';
@@ -28,7 +28,7 @@ class LinkInputPopover extends Component {
         this.updateLinkInputValue = updateLinkInputValue.bind(this);
 
         this.getEntity = getEntity.bind(this);
-        this.handleKeyPress = handleKeyPress.bind(this);
+        this.handleOnKeyPress = handleOnKeyPress.bind(this, this.setLink);
     }
 
     renderPopover() {
@@ -46,7 +46,7 @@ class LinkInputPopover extends Component {
                         style={Object.assign({},{border: '1px solid'+ this.props.customColor},popoverLinkStyles.input)}
                         value={this.state.inputRef}
                         onChange={this.updateLinkInputValue}
-                        onKeyPress={this.handleKeyPress}
+                        onKeyPress={this.handleOnKeyPress}
                     />
 
                    <span style={popoverLinkStyles.buttonGroup}>

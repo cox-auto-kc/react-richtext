@@ -28,7 +28,9 @@ class LinkImagePopover extends Component {
         this.updateLinkInputValue = updateLinkInputValue.bind(this);
 
         this.getEntity = getEntity.bind(this);
-        this.handleOnKeyPress = handleOnKeyPress.bind(this);
+        //this.handleOnKeyPress = handleOnKeyPress.bind(this);
+
+        this.handleOnKeyPress = handleOnKeyPress.bind(this, this.addImageLink);
     }
 
     renderPopover() {
@@ -89,19 +91,19 @@ class LinkImagePopover extends Component {
                         {renderPopover}
                     </Button>
                 </div>
-                </div>
-                );
-             }
-        }
+            </div>
+        );
+    }
+}
 
-                LinkImagePopover.propTypes = {
-                popoverLinkStyles: PropTypes.object,
-                editorState: PropTypes.object,
-                label: PropTypes.string,
-            };
+LinkImagePopover.propTypes = {
+    popoverLinkStyles: PropTypes.object,
+    editorState: PropTypes.object,
+    label: PropTypes.string,
+};
 
-                LinkImagePopover.defaultProps = {
-                popoverLinkStyles: Object.assign({}, styles.baseStyles, styles.popoverLinkStyles),
-            };
+LinkImagePopover.defaultProps = {
+    popoverLinkStyles: Object.assign({}, styles.baseStyles, styles.popoverLinkStyles),
+};
 
-                export default LinkImagePopover;
+export default LinkImagePopover;

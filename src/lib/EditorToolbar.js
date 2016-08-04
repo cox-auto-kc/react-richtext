@@ -18,7 +18,7 @@ import {
     toggleInlineStyle,
     focusEditor,
     onKeypress,
-    toggleShowLinkInput,
+
     setLink,
     removeLink,
     getEntity,
@@ -26,8 +26,7 @@ import {
     undo,
     redo,
     addImageLink,
-    toggleshowColorInput,
-    toggleshowImageInput,
+
     uploadImage,
     fileInput,
     insertImage
@@ -67,7 +66,6 @@ export default class EditorToolbar extends Component {
         this._toggleInlineStyle = toggleInlineStyle.bind(this);
         this._focusEditor = focusEditor.bind(this);
         this._onKeypress = onKeypress.bind(this);
-        this._toggleShowLinkInput = toggleShowLinkInput.bind(this);
         this._setLink = setLink.bind(this);
         this._removeLink = removeLink.bind(this);
         this._getEntityAtCursor = getEntity.bind(this);
@@ -75,8 +73,7 @@ export default class EditorToolbar extends Component {
         this._undo = undo.bind(this);
         this._redo = redo.bind(this);
         this._addImageLink = addImageLink.bind(this);
-        this._toggleshowColorInput = toggleshowColorInput.bind(this);
-        this._toggleshowImageInput = toggleshowImageInput.bind(this);
+
         this._uploadImage = uploadImage.bind(this);
         this._fileInput = fileInput.bind(this);
         this._insertImage = insertImage.bind(this);
