@@ -1,7 +1,7 @@
 import React, {PropTypes,Component} from 'react';
 import RichTextEditor, {createEmptyValue} from './RichTextEditor';
 import {convertToRaw} from 'draft-js';
-import type {EditorValue} from './RichTextEditor';
+import {EditorValue} from './RichTextEditor';
 
 
 const styles={
