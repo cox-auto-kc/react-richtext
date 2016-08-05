@@ -23,9 +23,9 @@
     "draft-js-import-markdown": "0.1.4",
     "draft-js-utils": "0.1.4",
     "immutable": "3.8.1",
-    "react": "15.0.2",
+    "react": "0.14.x || 15.x.x",
     "react-bootstrap": "0.29.4",
-    "react-dom": "15.0.2"
+    "react-dom": "0.14.x || 15.x.x"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
@@ -46,11 +46,15 @@
     "flow-bin": "0.22.1",
     "mocha": "2.4.5",
     "raw-loader": "0.5.1",
-    "react-addons-test-utils": "15.0.2",
+    "react-addons-test-utils": "0.14.x || 15.x.x",
     "rimraf": "2.5.2",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.0"
+  },
+  "peerDependencies": {
+    "react": "0.14.x || 15.x.x",
+    "react-dom": "0.14.x || 15.x.x"
   },
   "repository": {
     "type": "git",
