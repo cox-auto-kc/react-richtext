@@ -106,7 +106,6 @@ export function toggleInlineColorsStyle(inlineStyle) {
 }
 
 export function toggleFillColorsStyle(inlineStyle) {
-    console.log(inlineStyle);
     let {editorState} = this.props;
 
     this.props.onChange( RichUtils.toggleInlineStyle(
