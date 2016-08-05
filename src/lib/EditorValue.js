@@ -1,3 +1,4 @@
+/* @flow */
 import {ContentState, EditorState} from 'draft-js';
 import {stateToHTML} from 'draft-js-export-html';
 import {stateFromHTML} from 'draft-js-import-html';
@@ -5,9 +6,9 @@ import {stateToMarkdown} from 'draft-js-export-markdown';
 import {stateFromMarkdown} from 'draft-js-import-markdown';
 import {DraftDecoratorType as Decorator} from 'draft-js/lib/DraftDecoratorType';
 
-var StringMap = {};
-export default class EditorValue {
+var StringMap = {key:''};
 
+export default class EditorValue {
   _editorState: EditorState;
   _cache: StringMap;
 
@@ -22,8 +23,8 @@ export default class EditorValue {
 
   setEditorState(editorState: EditorState): EditorValue {
     return (this._editorState === editorState) ?
-      this :
-      new EditorValue(editorState);
+        this :
+        new EditorValue(editorState);
   }
 
   toString(format: string): string {
@@ -36,27 +37,27 @@ export default class EditorValue {
 
   setContentFromString(markup: string, format: string): EditorValue {
     let editorState = EditorState.push(
-      this._editorState,
-      fromString(markup, format),
-      'secondary-paste'
+        this._editorState,
+        fromString(markup, format),
+        'secondary-paste'
     );
     return new EditorValue(editorState, {[format]: markup});
   }
 
   static createEmpty(decorator: Decorator): EditorValue {
-    let editorState = EditorState.createEmpty(decorator);
-    return new EditorValue(editorState);
-  }
+  let editorState = EditorState.createEmpty(decorator);
+  return new EditorValue(editorState);
+}
 
-  static createFromState(editorState: EditorState): EditorValue {
-    return new EditorValue(editorState);
-  }
+static createFromState(editorState: EditorState): EditorValue {
+  return new EditorValue(editorState);
+}
 
-  static createFromString(markup: string, format: string, decorator: Decorator): EditorValue {
-    let contentState = fromString(markup, format);
-    let editorState = EditorState.createWithContent(contentState, decorator);
-    return new EditorValue(editorState, {[format]: markup});
-  }
+static createFromString(markup: string, format: string, decorator: Decorator): EditorValue {
+  let contentState = fromString(markup, format);
+  let editorState = EditorState.createWithContent(contentState, decorator);
+  return new EditorValue(editorState, {[format]: markup});
+}
 }
 
 function toString(editorState: EditorState, format: string): string {

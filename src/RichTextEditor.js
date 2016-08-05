@@ -16,19 +16,25 @@ import styles from '../assets/styles';
 import styleMap from '../assets/styleMap';
 import {ContentBlock} from 'draft-js';
 
-
 let richTextEditorStyles = styles.richTextEditorStyles;
 
 const MAX_LIST_DEPTH = 2;
 
+var ChangeHandler = (value: EditorValue) => any;
+
+let Props = {
+  onChange : ChangeHandler,
+}
+
 export default class RichTextEditor extends Component {
+  props:Props;
 
   constructor() {
     super(...arguments);
     this._keyEmitter = new EventEmitter();
-    }
+  }
 
-  render(): React.Element {
+  render():React.Element {
     let {props} = this;
     let editorState = props.value.getEditorState();
 
@@ -37,36 +43,36 @@ export default class RichTextEditor extends Component {
     // style the placeholder or hide it. Let's just hide it for now.
 
     return (
-      <div style={richTextEditorStyles.richtext}>
-        <EditorToolbar className="toolbar"
-          //keyEmitter={this._keyEmitter}
-          editorState={editorState}
-          onChange={this._onChange.bind(this)}
-          //focusEditor={this._focus.bind(this)}
-        />
-
-        <div style={richTextEditorStyles.editor}>
-          <Editor
-            blockRendererFn={this._blockRenderer}
-            blockStyleFn={getBlockStyle}
-            customStyleMap={styleMap}
-            editorState={editorState}
-            handleReturn={this._handleReturn.bind(this)}
-            keyBindingFn={this._customKeyHandler.bind(this)}
-            handleKeyCommand={this._handleKeyCommand}
-            onTab={this._onTab.bind(this)}
-            onChange={this._onChange.bind(this)}
-            placeholder={placeholder}
-            ref="editor"
-            spellCheck={true}
+        <div style={richTextEditorStyles.richtext}>
+          <EditorToolbar className="toolbar"
+                         keyEmitter={this._keyEmitter}
+                         editorState={editorState}
+                         onChange={this._onChange.bind(this)}
+                         focusEditor={this._focus.bind(this)}
           />
+
+          <div style={richTextEditorStyles.editor}>
+            <Editor
+                blockRendererFn={this._blockRenderer}
+                blockStyleFn={getBlockStyle}
+                customStyleMap={styleMap}
+                editorState={editorState}
+                handleReturn={this._handleReturn.bind(this)}
+                keyBindingFn={this._customKeyHandler.bind(this)}
+                handleKeyCommand={this._handleKeyCommand.bind(this)}
+                onTab={this._onTab.bind(this)}
+                onChange={this._onChange.bind(this)}
+                placeholder={placeholder}
+                ref="editor"
+                spellCheck={true}
+            />
+          </div>
         </div>
-      </div>
     );
   }
 
-  _shouldHidePlaceholder(): boolean {
-    let editorState = this.props.value.getEditorState();
+  _shouldHidePlaceholder():boolean {
+    let editorState = this.props.value.getEditorState.bind(this);
     let contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
       if (contentState.getBlockMap().first().getType() !== 'unstyled') {
@@ -76,7 +82,7 @@ export default class RichTextEditor extends Component {
     return false;
   }
 
-  _handleReturn(event: Object): boolean {
+  _handleReturn(event:Object):boolean {
     if (this._handleReturnSoftNewline(event)) {
       return true;
     }
@@ -90,8 +96,8 @@ export default class RichTextEditor extends Component {
   }
 
   // `shift + return` should insert a soft newline.
-  _handleReturnSoftNewline(event: Object): boolean {
-    let editorState = this.props.value.getEditorState();
+  _handleReturnSoftNewline(event:Object):boolean {
+    let editorState = this.props.value.getEditorState.bind(this);
     if (isSoftNewlineEvent(event)) {
       let selection = editorState.getSelection();
       if (selection.isCollapsed()) {
@@ -102,14 +108,14 @@ export default class RichTextEditor extends Component {
         let newSelection = newContent.getSelectionAfter();
         let block = newContent.getBlockForKey(newSelection.getStartKey());
         newContent = Modifier.insertText(
-          newContent,
-          newSelection,
-          '\n',
-          block.getInlineStyleAt(newSelection.getStartOffset()),
-          null
+            newContent,
+            newSelection,
+            '\n',
+            block.getInlineStyleAt(newSelection.getStartOffset()),
+            null
         );
         this._onChange(
-          EditorState.push(editorState, newContent, 'insert-fragment')
+            EditorState.push(editorState, newContent, 'insert-fragment')
         );
       }
       return true;
@@ -119,8 +125,8 @@ export default class RichTextEditor extends Component {
 
   // If the cursor is in an empty list item when return is pressed, then the
   // block type should change to normal (end the list).
-  _handleReturnEmptyListItem(): boolean {
-    let editorState = this.props.value.getEditorState();
+  _handleReturnEmptyListItem():boolean {
+    let editorState = this.props.value.getEditorState.bind(this);
     let selection = editorState.getSelection();
     if (selection.isCollapsed()) {
       let contentState = editorState.getCurrentContent();
@@ -129,8 +135,8 @@ export default class RichTextEditor extends Component {
       if (isListItem(block) && block.getLength() === 0) {
         let depth = block.getDepth();
         let newState = (depth === 0) ?
-          changeBlockType(editorState, blockKey, BLOCK_TYPE.UNSTYLED) :
-          changeBlockDepth(editorState, blockKey, depth - 1);
+            changeBlockType(editorState, blockKey, BLOCK_TYPE.UNSTYLED) :
+            changeBlockDepth(editorState, blockKey, depth - 1);
         this._onChange(newState);
         return true;
       }
@@ -140,8 +146,8 @@ export default class RichTextEditor extends Component {
 
   // If the cursor is at the end of a special block (any block type other than
   // normal or list item) when return is pressed, new block should be normal.
-  _handleReturnSpecialBlock(): boolean {
-    let editorState = this.props.value.getEditorState();
+  _handleReturnSpecialBlock():boolean {
+    let editorState = this.props.value.getEditorState.bind(this);
     let selection = editorState.getSelection();
     if (selection.isCollapsed()) {
       let contentState = editorState.getCurrentContent();
@@ -151,9 +157,9 @@ export default class RichTextEditor extends Component {
         // If cursor is at end.
         if (block.getLength() === selection.getStartOffset()) {
           let newEditorState = insertBlockAfter(
-            editorState,
-            blockKey,
-            BLOCK_TYPE.UNSTYLED
+              editorState,
+              blockKey,
+              BLOCK_TYPE.UNSTYLED
           );
           this._onChange(newEditorState);
           return true;
@@ -163,15 +169,15 @@ export default class RichTextEditor extends Component {
     return false;
   }
 
-  _onTab(event: Object){
-    let editorState = this.props.value.getEditorState();
+  _onTab(event:Object) {
+    let editorState = this.props.value.getEditorState.bind(this);
     let newEditorState = RichUtils.onTab(event, editorState, MAX_LIST_DEPTH);
     if (newEditorState !== editorState) {
       this._onChange(newEditorState);
     }
   }
 
-  _customKeyHandler(event: Object) {
+  _customKeyHandler(event:Object):string {
     // Allow toolbar to catch key combinations.
     let eventFlags = {};
     this._keyEmitter.emit('keypress', event, eventFlags);
@@ -182,7 +188,7 @@ export default class RichTextEditor extends Component {
     }
   }
 
-  _handleKeyCommand(command: string): boolean {
+  _handleKeyCommand(command:string):boolean {
     let editorState = this.props.value.getEditorState();
     let newEditorState = RichUtils.handleKeyCommand(editorState, command);
     if (newEditorState) {
@@ -193,25 +199,26 @@ export default class RichTextEditor extends Component {
     }
   }
 
-  _onChange(editorState: EditorState) {
+  _onChange(editorState:EditorState) {
     let {onChange,value } = this.props;
     if (onChange != null) {
       let newValue = value.setEditorState(editorState);
       onChange(newValue);
     }
   }
+
   _focus() {
     this.refs.editor.focus();
   }
 
-  _blockRenderer = (block: ContentBlock) => {
-  if (block.getType() === 'atomic') {
-    return {
-      component: ImageComponent
-    };
+  _blockRenderer = (block:ContentBlock) => {
+    if (block.getType() === 'atomic') {
+      return {
+        component: ImageComponent
+      };
+    }
+    return null;
   }
-  return null;
-}
 }
 
 function getBlockStyle(block: ContentBlock): string {
@@ -244,9 +251,6 @@ RichTextEditor.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   toolbarColor: PropTypes.string,
-  onChange: PropTypes.func,
+  value : PropTypes.object,
 };
 
-RichTextEditor.defaultProps = {
-  toolbarColor: '#0585c8'
-};

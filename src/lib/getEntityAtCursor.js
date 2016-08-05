@@ -1,11 +1,5 @@
 import {EditorState, ContentBlock} from 'draft-js';
 
-/*let EntityDescription = {
-  entityKey: string,
-  blockKey: string,
-  startOffset: number,
-  endOffset: number
-};*/
 
 function getEntityAtOffset(block: ContentBlock, offset: number): EntityDescription {
   let entityKey = block.getEntityAt(offset);
