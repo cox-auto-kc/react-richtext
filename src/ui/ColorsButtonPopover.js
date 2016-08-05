@@ -28,16 +28,27 @@ class ColorsButtonPopover extends Component {
 
     renderPopover(){
         let {
+            popoverKey,
+        } = this.state;
+        let {
+            popoverColorsSrc,
             popoverColorsStyles,
             customColor
         } = this.props;
 
+        let popoverConfig = popoverColorsSrc[popoverKey];
         let renderColorsButtons = this.renderColorsButtons();
+        let renderDisplayLabel = (popoverConfig.displayLabel != null) ?
+                                <div style={popoverColorsStyles.basePopoverLabel}>
+                                    {popoverConfig.displayLabel}
+                                </div> :
+                                null;
 
         return (
             <div>
                 <div style={Object.assign({}, {borderColor: customColor}, popoverColorsStyles.popoverContainer)}>
-                    <div style={popoverColorsStyles.popoverButtonWrap} >
+                    {renderDisplayLabel}
+                    <div style={popoverColorsStyles.basePopoverLabel}>
                         {renderColorsButtons }
                     </div>
                 </div>
@@ -78,7 +89,6 @@ class ColorsButtonPopover extends Component {
         let self = this;
         let {
             showPopover,
-            popoverConfig,
             popoverKey,
         } = this.state;
         let {

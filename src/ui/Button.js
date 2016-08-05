@@ -69,24 +69,24 @@ class Button extends Component{
         let thisStyle=this.getStyles();
         let displayIcon= this.props.label ==='Bold'? <IconBold /> :
             this.props.label ==='Monospace'? <IconCode /> :
-                this.props.label ==='Italic'? <IconItalic /> :
-                    this.props.label ==='underline'? <IconUnderline /> :
-                        this.props.label ==='Strikethrough'? <IconStrikethrough /> :
-                            this.props.label ==='LeftIndent'? <IconLeftIndent /> :
-                                this.props.label ==='RightIndent'? <IconRightIndent /> :
-                                    this.props.label ==='OL'? <IconOrderedList /> :
-                                        this.props.label==='UL'? <IconUnorderedList /> :
-                                            this.props.label ==='Link'? <IconLink /> :
-                                                this.props.label ==='Remove Link'? <IconRemoveLink /> :
-                                                    this.props.label ==='Undo'? <IconUndo /> :
-                                                        this.props.label ==='Redo'? <IconRedo /> :
-                                                            this.props.label ==='Blockquote'? <IconBlockquote /> :
-                                                                this.props.label ==='Color'? <IconColorFill /> :
-                                                                    this.props.label ==='Cancel'? <IconCancel /> :
-                                                                        this.props.label ==='Submit'? <IconAccept /> :
-                                                                            this.props.label ==='Image'? <IconImage /> :
-                                                                                this.props.label ==='LocalImage'? <IconLocalImage /> :
-                                                                                    '';
+            this.props.label ==='Italic'? <IconItalic /> :
+            this.props.label ==='underline'? <IconUnderline /> :
+            this.props.label ==='Strikethrough'? <IconStrikethrough /> :
+            this.props.label ==='LeftIndent'? <IconLeftIndent /> :
+            this.props.label ==='RightIndent'? <IconRightIndent /> :
+            this.props.label ==='OL'? <IconOrderedList /> :
+            this.props.label==='UL'? <IconUnorderedList /> :
+            this.props.label ==='Link'? <IconLink /> :
+            this.props.label ==='Remove Link'? <IconRemoveLink /> :
+            this.props.label ==='Undo'? <IconUndo /> :
+            this.props.label ==='Redo'? <IconRedo /> :
+            this.props.label ==='Blockquote'? <IconBlockquote /> :
+            this.props.label ==='Color'? <IconColorFill /> :
+            this.props.label ==='Cancel'? <IconCancel /> :
+            this.props.label ==='Submit'? <IconAccept /> :
+            this.props.label ==='Image'? <IconImage /> :
+            this.props.label ==='LocalImage'? <IconLocalImage /> :
+            '';
 
         return(
             <span style={thisStyle.icon}>{displayIcon}</span>
@@ -95,7 +95,11 @@ class Button extends Component{
 
     render(){
         let{label,buttonStyles,isActive,isDisabled,onClick,children}=this.props;
-        let OnClick = !onClick ? this.onClick : onClick;
+
+        let OnClick = isDisabled ?
+            null: !onClick ? this.onClick :
+            onClick;
+
         let type = this.props.formSubmit ? 'submit' : 'button';
         let thisStyle=this.getStyles();
 
@@ -105,7 +109,8 @@ class Button extends Component{
                   title={label}
                   type={type}
                   customColor={this.props.customColor}
-                  onClick={OnClick} style={Object.assign({}, thisStyle.btnStyles, buttonStyles )}
+                  onClick={OnClick}
+                  style={Object.assign({}, thisStyle.btnStyles, buttonStyles )}
               >
                   {this.renderIcons()}
               </button>
