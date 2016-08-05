@@ -30,6 +30,31 @@ const styles={
             padding: '2px 0',
         },
     },
+    buttonStyles: {
+        button: {
+            display: 'inline-block',
+            margin: '0px 5px 0px 0px',
+            padding: '3px 8px',
+            height: 32,
+            lineHeight: 1.5,
+            boxSizing: 'border-box',
+            border: '1px solid #0585c8',
+            borderRadius: 3,
+            color: '#0585c8',
+            textDecoration: 'none',
+            fontSize: 13,
+            fontFamily: '"Roboto Condensed",sans-serif',
+            whiteSpace: ' nowrap',
+            fontWeight: 400,
+            marginBottom: 5,
+            marginRight: 5,
+        },
+        icon: {
+            fill: '#0585c8',
+            paddingRight: 5,
+            paddingLeft: 5,
+        },
+    },
     richTextEditorStyles: {
         richtext: {
             background: '#fff',
@@ -86,7 +111,7 @@ const styles={
         }
     },
     popoverColorsStyles: {
-        popoverContainer: {
+        basePopoverContainer: {
             position:'absolute',
             zIndex: 2,
             fontSize: '14px',
@@ -94,7 +119,9 @@ const styles={
             borderRadius: 0,
             boxSizing: 'border-box',
             boxShadow: '0 5px 10px rgba(0,0,0,.2)',
-            //border: '1px solid rgba(0,0,0,.2)',
+            border: '1px solid rgba(0,0,0,.2)',
+        },
+        popoverContainer: {
             padding: '0 12px 0 16px',
             width: 190,
         },
@@ -119,16 +146,7 @@ const styles={
     },
     popoverLinkStyles: {
         popoverContainer: {
-            position:'absolute',
-            zIndex: 2,
-            fontSize: '14px',
-            background: '#fdfdfd',
-            borderRadius: 0,
-            boxSizing: 'border-box',
-            boxShadow: '0 5px 10px rgba(0,0,0,.2)',
-            border: '1px solid rgba(0,0,0,.2)',
-
-            padding: '0px 16px',
+            padding: '0px 8px',
             minWidth: '194px',
         },
         popoverButtonsWrap:{

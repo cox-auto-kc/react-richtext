@@ -36,13 +36,16 @@ class Button extends Component{
     getStyles(){
         let styles={
             btnStyles: {
+                /*
                 display: 'inline-block',
-                margin: '5px 5px 0 0',
+                margin: '0px 5px 0px 0px',
                 padding: '3px 8px',
                 height: 32,
                 lineHeight: 1.5,
                 boxSizing: 'border-box',
+                */
                 background: this.props.isActive? 'none #d8d8d8': '#ffffff',
+                /*
                 border: '1px solid #0585c8',
                 borderRadius: 3,
                 color: '#0585c8',
@@ -50,15 +53,20 @@ class Button extends Component{
                 fontSize: 13,
                 fontFamily: '"Roboto Condensed",sans-serif',
                 whiteSpace: ' nowrap',
+                */
                 cursor: this.props.isDisabled ? 'not-allowed':'pointer',
+                /*
                 fontWeight: 400,
                 marginBottom: 5,
                 marginRight: 5,
+                */
             },
             icon: {
+                /*
                 fill: '#0585c8',
                 paddingRight: 5,
                 paddingLeft: 5,
+                */
                 opacity:this.props.isDisabled ? 0.5:'',
             },
         };
@@ -66,6 +74,7 @@ class Button extends Component{
     }
 
     renderIcons(){
+        let {buttonStyles } = this.props;
         let thisStyle=this.getStyles();
         let displayIcon= this.props.label ==='Bold'? <IconBold /> :
             this.props.label ==='Monospace'? <IconCode /> :
@@ -89,7 +98,7 @@ class Button extends Component{
             '';
 
         return(
-            <span style={thisStyle.icon}>{displayIcon}</span>
+            <span style={Object.assign({}, thisStyle.icon, buttonStyles.icon)}>{displayIcon}</span>
         );
     }
 
@@ -110,7 +119,7 @@ class Button extends Component{
                   type={type}
                   customColor={this.props.customColor}
                   onClick={OnClick}
-                  style={Object.assign({}, thisStyle.btnStyles, buttonStyles )}
+                  style={Object.assign({}, thisStyle.btnStyles, buttonStyles, buttonStyles.button )}
               >
                   {this.renderIcons()}
               </button>

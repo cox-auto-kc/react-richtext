@@ -34,7 +34,7 @@ class LinkImagePopover extends Component {
         return (
             <div>
                 <form
-                    style={Object.assign({},{border: '1px solid '+ this.props.customColor},popoverLinkStyles.popoverContainer)}
+                    style={Object.assign({},{border: '1px solid '+ this.props.customColor},popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
 
                 >
                     <div style={popoverLinkStyles.inner}>
@@ -63,9 +63,8 @@ class LinkImagePopover extends Component {
                             />
                         </span>
                     </div>
-                    <div style={popoverLinkStyles.basePopoverBackdrop} onClick={this.toggleLink}></div>
                 </form>
-
+                <div style={popoverLinkStyles.basePopoverBackdrop} onClick={this.toggleLink}></div>
             </div>
         );
     }
@@ -96,7 +95,7 @@ LinkImagePopover.propTypes = {
 };
 
 LinkImagePopover.defaultProps = {
-    popoverLinkStyles: Object.assign({}, styles.baseStyles, styles.popoverLinkStyles),
+    popoverLinkStyles: Object.assign({}, styles.popoverLinkStyles, styles.baseStyles),
 };
 
 export default LinkImagePopover;

@@ -46,7 +46,7 @@ class ColorsButtonPopover extends Component {
 
         return (
             <div>
-                <div style={Object.assign({}, {borderColor: customColor}, popoverColorsStyles.popoverContainer)}>
+                <div style={Object.assign({}, {borderColor: customColor}, popoverColorsStyles.popoverContainer, popoverColorsStyles.basePopoverContainer )}>
                     {renderDisplayLabel}
                     <div style={popoverColorsStyles.basePopoverLabel}>
                         {renderColorsButtons }
@@ -141,7 +141,7 @@ ColorsButtonPopover.PropTypes ={
 
 ColorsButtonPopover.defaultProps = {
     //popoverColorsStyles: styles.popoverColorsStyles,
-    popoverColorsStyles: Object.assign({}, styles.baseStyles, styles.popoverColorsStyles),
+    popoverColorsStyles: Object.assign({}, styles.popoverColorsStyles, styles.baseStyles),
 };
 
 export default ColorsButtonPopover;
