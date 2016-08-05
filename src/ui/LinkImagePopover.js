@@ -34,14 +34,14 @@ class LinkImagePopover extends Component {
         return (
             <div>
                 <form
-                    style={Object.assign({},{border: '1px solid '+ this.props.customColor},popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
+                    style={Object.assign({}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
 
                 >
                     <div style={popoverLinkStyles.inner}>
                         <input
                             type="text"
                             placeholder="https://example.com/"
-                            style={Object.assign({},{border: '1px solid'+ this.props.customColor},popoverLinkStyles.input)}
+                            style={popoverLinkStyles.input}
                             value={this.state.inputRef}
                             onChange={this.updateLinkInputValue}
                             onKeyPress={this.handleOnKeyPress}
@@ -52,14 +52,14 @@ class LinkImagePopover extends Component {
                                 label="Cancel"
                                 iconName="cancel"
                                 onClick={this.toggleLink}
-                                buttonStyles={popoverLinkStyles.formButtons}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
                             />
                             <Button
                                 label="Submit"
                                 iconName="accept"
                                 type='submit'
                                 onClick={this.addImageLink}
-                                buttonStyles={popoverLinkStyles.formButtons}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
                             />
                         </span>
                     </div>

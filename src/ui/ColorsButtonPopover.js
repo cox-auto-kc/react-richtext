@@ -78,7 +78,7 @@ class ColorsButtonPopover extends Component {
                 isActive={false}
                 styles={type.style}
                 onToggle={selectMethod}
-                buttonStyles={Object.assign({}, {background: type.hex}, popoverColorsStyles.popoverColorButtons)}
+                passedButtonStyles={Object.assign({}, {background: type.hex}, popoverColorsStyles.popoverColorButtons)}
             />
         ));
         return colorsButtons;

@@ -160,7 +160,7 @@ const styles={
             flex: '1 0 auto',
             height: '30px',
             background: 'none white',
-            border: '1px solid #999',
+            border: '1px solid  #0585c8',
             borderRadius: '2px',
             boxSizing: 'border-box',
             padding: '2px 6px',
@@ -174,7 +174,9 @@ const styles={
         },
         formButtons: {
             height: '30px',
-            marginTop: '5px',
+            color: '#0585c8',
+            marginTop: 4,
+            marginRight: 4,
         },
     },
     basicDropdownsStyles: {

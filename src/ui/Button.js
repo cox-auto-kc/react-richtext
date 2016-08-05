@@ -74,7 +74,7 @@ class Button extends Component{
     }
 
     renderIcons(){
-        let {buttonStyles } = this.props;
+        let {buttonStyles} = this.props;
         let thisStyle=this.getStyles();
         let displayIcon= this.props.label ==='Bold'? <IconBold /> :
             this.props.label ==='Monospace'? <IconCode /> :
@@ -103,7 +103,7 @@ class Button extends Component{
     }
 
     render(){
-        let{label,buttonStyles,isActive,isDisabled,onClick,children}=this.props;
+        let{label, passedButtonStyles, buttonStyles,isActive,isDisabled,onClick,children}=this.props;
 
         let OnClick = isDisabled ?
             null: !onClick ? this.onClick :
@@ -119,7 +119,7 @@ class Button extends Component{
                   type={type}
                   customColor={this.props.customColor}
                   onClick={OnClick}
-                  style={Object.assign({}, thisStyle.btnStyles, buttonStyles, buttonStyles.button )}
+                  style={Object.assign({}, thisStyle.btnStyles, buttonStyles.button, passedButtonStyles )}
               >
                   {this.renderIcons()}
               </button>
@@ -131,6 +131,7 @@ class Button extends Component{
 
 Button.propTypes ={
     iconName: PropTypes.string,
+    passedButtonStyles: PropTypes.object,
     buttonStyles: PropTypes.object,
     styles: PropTypes.string,
     label: PropTypes.string,

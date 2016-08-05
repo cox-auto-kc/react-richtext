@@ -57,14 +57,14 @@ class LinkInputPopover extends Component {
                                 label="Cancel"
                                 iconName="cancel"
                                 onClick={this.toggleLink}
-                                buttonStyles={popoverLinkStyles.formButtons}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
                             />
                             <Button
                                 label="Submit"
                                 iconName="accept"
                                 type='submit'
                                 onClick={this.setLink}
-                                buttonStyles={popoverLinkStyles.formButtons}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
                             />
                         </span>
                     </div>
