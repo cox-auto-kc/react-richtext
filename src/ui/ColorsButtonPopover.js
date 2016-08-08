@@ -104,6 +104,7 @@ class ColorsButtonPopover extends Component {
         } = this.state;
         let {
             popoverColorsSrc,
+            popoverColorsStyles,
             customColor
         } = this.props;
 
@@ -112,7 +113,7 @@ class ColorsButtonPopover extends Component {
             let renderPopover = (showPopover && popoverKey == key) ? self.renderPopover(): null;
 
             return(
-                <div key={key} style={{position: 'relative', display: 'inline-block'}}>
+                <div key={key} style={popoverColorsStyles.basePopoverTrigger}>
                     <Button
                         label={v.label}
                         onToggle={toggleMethod}
