@@ -1,4 +1,3 @@
-/* @flow */
 import React, {Component, PropTypes} from 'react';
 import {CompositeDecorator, Editor, EditorState, Modifier, RichUtils, AtomicBlockUtils, ContentState} from 'draft-js';
 import getDefaultKeyBinding from 'draft-js/lib/getDefaultKeyBinding';
@@ -10,57 +9,32 @@ import isSoftNewlineEvent from 'draft-js/lib/isSoftNewlineEvent';
 import EditorToolbar from './lib/EditorToolbar';
 import EditorValue from './lib/EditorValue';
 import LinkDecorator from './lib/LinkDecorator';
-import cx from 'classnames';
-import autobind from 'class-autobind';
 import {EventEmitter} from 'events';
 import {BLOCK_TYPE} from 'draft-js-utils';
 import ImageComponent from './lib/ImageComponent';
-
 import styles from '../assets/styles';
 import styleMap from '../assets/styleMap';
-
-import type {ContentBlock} from 'draft-js';
+import {ContentBlock} from 'draft-js';
 
 let richTextEditorStyles = styles.richTextEditorStyles;
 
 const MAX_LIST_DEPTH = 2;
 
+var ChangeHandler = (value: EditorValue) => any;
 
-type ChangeHandler = (value: EditorValue) => any;
-
-type Props = {
-    onChange?: ChangeHandler;
-placeholder?: string
-};
+let Props = {
+    onChange : ChangeHandler,
+}
 
 export default class RichTextEditor extends Component {
-    props: Props;
-    _keyEmitter: EventEmitter;
+    props:Props;
 
     constructor() {
         super(...arguments);
         this._keyEmitter = new EventEmitter();
-        autobind(this);
     }
 
-    componentDidMount(){
-        //passing hex value to change toolbar components color
-        let{toolbarColor}=this.props;
-
-        var button = document.getElementsByTagName('button');
-        var svg = document.getElementsByTagName('svg');
-
-        for (var i = 0; i < button.length; i++) {
-            button[i].style.border = '1px solid' + toolbarColor;
-
-        }
-        for (var i = 0; i < svg.length; i++) {
-            svg[i].style.fill = toolbarColor;
-        }
-
-    }
-
-    render(): React.Element {
+    render():React.Element {
         let {props} = this;
         let editorState = props.value.getEditorState();
 
@@ -73,8 +47,8 @@ export default class RichTextEditor extends Component {
                 <EditorToolbar className="toolbar"
                                keyEmitter={this._keyEmitter}
                                editorState={editorState}
-                               onChange={this._onChange}
-                               focusEditor={this._focus}
+                               onChange={this._onChange.bind(this)}
+                               focusEditor={this._focus.bind(this)}
                 />
 
                 <div style={richTextEditorStyles.editor}>
@@ -83,11 +57,11 @@ export default class RichTextEditor extends Component {
                         blockStyleFn={getBlockStyle}
                         customStyleMap={styleMap}
                         editorState={editorState}
-                        handleReturn={this._handleReturn}
-                        keyBindingFn={this._customKeyHandler}
-                        handleKeyCommand={this._handleKeyCommand}
-                        onTab={this._onTab}
-                        onChange={this._onChange}
+                        handleReturn={this._handleReturn.bind(this)}
+                        keyBindingFn={this._customKeyHandler.bind(this)}
+                        handleKeyCommand={this._handleKeyCommand.bind(this)}
+                        onTab={this._onTab.bind(this)}
+                        onChange={this._onChange.bind(this)}
                         placeholder={placeholder}
                         ref="editor"
                         spellCheck={true}
@@ -97,8 +71,8 @@ export default class RichTextEditor extends Component {
         );
     }
 
-    _shouldHidePlaceholder(): boolean {
-        let editorState = this.props.value.getEditorState();
+    _shouldHidePlaceholder():boolean {
+        let editorState = this.props.value.getEditorState.bind(this);
         let contentState = editorState.getCurrentContent();
         if (!contentState.hasText()) {
             if (contentState.getBlockMap().first().getType() !== 'unstyled') {
@@ -108,7 +82,7 @@ export default class RichTextEditor extends Component {
         return false;
     }
 
-    _handleReturn(event: Object): boolean {
+    _handleReturn(event:Object):boolean {
         if (this._handleReturnSoftNewline(event)) {
             return true;
         }
@@ -122,7 +96,7 @@ export default class RichTextEditor extends Component {
     }
 
     // `shift + return` should insert a soft newline.
-    _handleReturnSoftNewline(event: Object): boolean {
+    _handleReturnSoftNewline(event:Object):boolean {
         let editorState = this.props.value.getEditorState();
         if (isSoftNewlineEvent(event)) {
             let selection = editorState.getSelection();
@@ -151,7 +125,7 @@ export default class RichTextEditor extends Component {
 
     // If the cursor is in an empty list item when return is pressed, then the
     // block type should change to normal (end the list).
-    _handleReturnEmptyListItem(): boolean {
+    _handleReturnEmptyListItem():boolean {
         let editorState = this.props.value.getEditorState();
         let selection = editorState.getSelection();
         if (selection.isCollapsed()) {
@@ -172,7 +146,7 @@ export default class RichTextEditor extends Component {
 
     // If the cursor is at the end of a special block (any block type other than
     // normal or list item) when return is pressed, new block should be normal.
-    _handleReturnSpecialBlock(): boolean {
+    _handleReturnSpecialBlock():boolean {
         let editorState = this.props.value.getEditorState();
         let selection = editorState.getSelection();
         if (selection.isCollapsed()) {
@@ -195,65 +169,67 @@ export default class RichTextEditor extends Component {
         return false;
     }
 
-    _onTab(event: Object): ?string {
-    let editorState = this.props.value.getEditorState();
-    let newEditorState = RichUtils.onTab(event, editorState, MAX_LIST_DEPTH);
-    if (newEditorState !== editorState) {
-    this._onChange(newEditorState);
-}
-}
-
-_customKeyHandler(event: Object): ?string {
-    // Allow toolbar to catch key combinations.
-    let eventFlags = {};
-this._keyEmitter.emit('keypress', event, eventFlags);
-if (eventFlags.wasHandled) {
-    return null;
-} else {
-    return getDefaultKeyBinding(event);
-}
-}
-
-_handleKeyCommand(command: string): boolean {
-    let editorState = this.props.value.getEditorState();
-    let newEditorState = RichUtils.handleKeyCommand(editorState, command);
-    if (newEditorState) {
-        this._onChange(newEditorState);
-        return true;
-    } else {
-        return false;
+    _onTab(event:Object) {
+        let editorState = this.props.value.getEditorState.bind(this);
+        let newEditorState = RichUtils.onTab(event, editorState, MAX_LIST_DEPTH);
+        if (newEditorState !== editorState) {
+            this._onChange(newEditorState);
+        }
     }
-}
 
-_onChange(editorState: EditorState) {
-    let {onChange, value} = this.props;
-    if (onChange != null) {
-        let newValue = value.setEditorState(editorState);
-        onChange(newValue);
+    _customKeyHandler(event:Object):string {
+        // Allow toolbar to catch key combinations.
+        let eventFlags = {};
+        this._keyEmitter.emit('keypress', event, eventFlags);
+        if (eventFlags.wasHandled) {
+            return null;
+        } else {
+            return getDefaultKeyBinding(event);
+        }
     }
-}
-_focus() {
-    this.refs.editor.focus();
-}
-_blockRenderer = (block: ContentBlock) => {
-    if (block.getType() === 'atomic') {
-        return {
-            component: ImageComponent
-        };
+
+    _handleKeyCommand(command:string):boolean {
+        let editorState = this.props.value.getEditorState();
+        let newEditorState = RichUtils.handleKeyCommand(editorState, command);
+        if (newEditorState) {
+            this._onChange(newEditorState);
+            return true;
+        } else {
+            return false;
+        }
     }
-    return null;
-}
+
+    _onChange(editorState:EditorState) {
+        let {onChange,value } = this.props;
+        if (onChange != null) {
+            let newValue = value.setEditorState(editorState);
+            onChange(newValue);
+        }
+    }
+
+    _focus() {
+        this.refs.editor.focus();
+    }
+
+    _blockRenderer = (block:ContentBlock) => {
+        if (block.getType() === 'atomic') {
+            return {
+                component: ImageComponent
+            };
+        }
+        return null;
+    }
 }
 
 function getBlockStyle(block: ContentBlock): string {
     let result = richTextEditorStyles.block;
     switch (block.getType()) {
         case 'unstyled':
-            return cx(result, richTextEditorStyles.paragraph);
+            return (result, richTextEditorStyles.paragraph);
         case 'blockquote':
-            return cx(result, richTextEditorStyles.blockquote);
+            return (result, richTextEditorStyles.blockquote);
         case 'code-block':
-            return cx(result, richTextEditorStyles.codeBlock);
+            return (result, richTextEditorStyles.codeBlock);
         default:
             return result;
     }
@@ -269,22 +245,11 @@ function createValueFromString(markup: string, format: string): EditorValue {
     return EditorValue.createFromString(markup, format, decorator);
 }
 
-// $FlowIssue - This should probably not be done this way.
-Object.assign(RichTextEditor, {
-    EditorValue,
-    decorator,
-    createEmptyValue,
-    createValueFromString,
-});
-
 export {EditorValue, decorator, createEmptyValue, createValueFromString};
 
 RichTextEditor.propTypes = {
     className: PropTypes.string,
     placeholder: PropTypes.string,
-    toolbarColor: PropTypes.string
-};
-
-RichTextEditor.defaultProps = {
-    toolbarColor: '#0585c8'
+    toolbarColor: PropTypes.string,
+    value : PropTypes.object,
 };

@@ -163,7 +163,7 @@ const styles={
             border: '1px solid  #0585c8',
             borderRadius: '2px',
             boxSizing: 'border-box',
-            padding: '2px 6px',
+            padding: '4px',
             fontFamily: 'inherit',
             fontSize: 'inherit',
             lineHeight: '24px',
