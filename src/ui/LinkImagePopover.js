@@ -29,40 +29,49 @@ class LinkImagePopover extends Component {
     }
 
     renderPopover() {
-        let { popoverLinkStyles } = this.props;
+        let {
+            popoverLinkStyles,
+            popoverBasis
+        } = this.props;
+
+        let basis = (popoverBasis == 'left')? { 'left': 0 }:
+                    (popoverBasis == 'right')? { 'right': 0 }:
+                     null;
 
         return (
-            <form
-                style={Object.assign({},{border: '1px solid '+ this.props.customColor},popoverLinkStyles.popoverContainer)}
-
-            >
-                <div style={popoverLinkStyles.inner}>
-                    <input
-                        type="text"
-                        placeholder="https://example.com/"
-                        style={Object.assign({},{border: '1px solid'+ this.props.customColor},popoverLinkStyles.input)}
-                        value={this.state.inputRef}
-                        onChange={this.updateLinkInputValue}
-                        onKeyPress={this.handleOnKeyPress}
-                    />
-
-                    <span style={popoverLinkStyles.buttonGroup}>
-                        <Button
-                            label="Cancel"
-                            iconName="cancel"
-                            onClick={this.toggleLink}
-                            buttonStyles={popoverLinkStyles.formButtons}
+            <div >
+                <form
+                    style={Object.assign({}, basis, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
+                >
+                    <div style={popoverLinkStyles.inner}>
+                        <input
+                            type="text"
+                            placeholder="https://example.com/"
+                            style={popoverLinkStyles.input}
+                            value={this.state.inputRef}
+                            onChange={this.updateLinkInputValue}
+                            onKeyPress={this.handleOnKeyPress}
                         />
-                        <Button
-                            label="Submit"
-                            iconName="accept"
-                            type='submit'
-                            onClick={this.addImageLink}
-                            buttonStyles={popoverLinkStyles.formButtons}
-                        />
-                    </span>
-                </div>
-            </form>
+
+                        <span style={popoverLinkStyles.buttonGroup}>
+                            <Button
+                                label="Cancel"
+                                iconName="cancel"
+                                onClick={this.toggleLink}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
+                            />
+                            <Button
+                                label="Submit"
+                                iconName="accept"
+                                type='submit'
+                                onClick={this.addImageLink}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
+                            />
+                        </span>
+                    </div>
+                </form>
+                <div style={popoverLinkStyles.basePopoverBackdrop} onClick={this.toggleLink}></div>
+            </div>
         );
     }
 
@@ -70,16 +79,10 @@ class LinkImagePopover extends Component {
         let {label,popoverLinkStyles } = this.props;
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
 
-        let popoverBackdrop = (this.state.showPopover) ?
-            <div style={popoverLinkStyles.basePopoverBackdrop} onClick={this.toggleLink}></div>:
-            null;
-
         return (
             <div style={popoverLinkStyles.baseContainer}>
                 <div style={popoverLinkStyles.popoverButtonsWrap}>
-                    {popoverBackdrop}
-
-                    <Button
+                     <Button
                         label={label}
                         onClick={this.toggleLink}
                     >
@@ -93,12 +96,14 @@ class LinkImagePopover extends Component {
 
 LinkImagePopover.propTypes = {
     popoverLinkStyles: PropTypes.object,
+    popoverBasis: PropTypes.string,
     editorState: PropTypes.object,
     label: PropTypes.string,
 };
 
 LinkImagePopover.defaultProps = {
-    popoverLinkStyles: Object.assign({}, styles.baseStyles, styles.popoverLinkStyles),
+    popoverLinkStyles: Object.assign({}, styles.popoverLinkStyles, styles.baseStyles),
+    popoverBasis: 'right',
 };
 
 export default LinkImagePopover;

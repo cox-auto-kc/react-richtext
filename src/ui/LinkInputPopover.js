@@ -36,43 +36,56 @@ class LinkInputPopover extends Component {
     renderPopover() {
         let { popoverLinkStyles } = this.props;
 
+
+        let basis = (popoverBasis == 'left')? { 'left': 0 }:
+                    (popoverBasis == 'right')? { 'right': 0 }:
+                    null;
+
         return (
-            <form
-                style={Object.assign({},{border: '1px solid '+ this.props.customColor},popoverLinkStyles.popoverContainer)}
+            <div>
+                <form
+                    style={Object.assign({}, basis, {border: '1px solid '+ this.props.customColor}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
 
-            >
-                <div style={popoverLinkStyles.inner}>
-                    <input
-                        type="text"
-                        placeholder="https://example.com/"
-                        style={Object.assign({},{border: '1px solid'+ this.props.customColor},popoverLinkStyles.input)}
-                        value={this.state.inputRef}
-                        onChange={this.updateLinkInputValue}
-                        onKeyPress={this.handleOnKeyPress}
-                    />
+                >
+                    <div style={popoverLinkStyles.inner}>
+                        <input
+                            type="text"
+                            placeholder="https://example.com/"
+                            style={Object.assign({},{border: '1px solid'+ this.props.customColor}, popoverLinkStyles.input)}
+                            value={this.state.inputRef}
+                            onChange={this.updateLinkInputValue}
+                            onKeyPress={this.handleOnKeyPress}
+                        />
 
-                   <span style={popoverLinkStyles.buttonGroup}>
-                        <Button
-                            label="Cancel"
-                            iconName="cancel"
-                            onClick={this.toggleLink}
-                            buttonStyles={popoverLinkStyles.formButtons}
-                        />
-                        <Button
-                            label="Submit"
-                            iconName="accept"
-                            type='submit'
-                            onClick={this.setLink}
-                            buttonStyles={popoverLinkStyles.formButtons}
-                        />
-                    </span>
-                </div>
-            </form>
+                       <span style={popoverLinkStyles.buttonGroup}>
+                            <Button
+                                label="Cancel"
+                                iconName="cancel"
+                                onClick={this.toggleLink}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
+                            />
+                            <Button
+                                label="Submit"
+                                iconName="accept"
+                                type='submit'
+                                onClick={this.setLink}
+                                passedButtonStyles={popoverLinkStyles.formButtons}
+                            />
+                        </span>
+                    </div>
+                </form>
+                <div style={popoverLinkStyles.basePopoverBackdrop} onClick={this.toggleLink}></div>
+            </div>
         );
     }
 
     render() {
-        let {popoverLinkStyles, label, entityLink } = this.props;
+        let {
+            popoverLinkStyles,
+            label,
+            entityLink
+        } = this.props;
+
         let selection = this.props.editorState.getSelection();
         let hasSelection = !selection.isCollapsed();
         let entity = this.getEntity();
@@ -81,15 +94,10 @@ class LinkInputPopover extends Component {
 
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
 
-        let popoverBackdrop = (this.state.showPopover) ?
-            <div style={popoverLinkStyles.basePopoverBackdrop} onClick={this.toggleLink}></div>:
-            null;
-
         return (
             <div style={popoverLinkStyles.baseContainer}>
 
                 <div style={popoverLinkStyles.popoverButtonsWrap}>
-                    {popoverBackdrop}
                     <Button
                         label={label}
                         isDisabled={!shouldShowLinkButton}
@@ -112,14 +120,16 @@ class LinkInputPopover extends Component {
 
 LinkInputPopover.propTypes = {
     popoverLinkStyles: PropTypes.object,
+    popoverBasis: PropTypes.string,
     editorState: PropTypes.object,
     label: PropTypes.string,
     entityLink: PropTypes.object,
 };
 
 LinkInputPopover.defaultProps = {
-    popoverLinkStyles: Object.assign({}, styles.baseStyles, styles.popoverLinkStyles),
+    popoverLinkStyles: Object.assign({}, styles.popoverLinkStyles, styles.baseStyles),
     entityLink: ENTITY_TYPE,
+    popoverBasis: 'left',
 };
 
 export default LinkInputPopover;
