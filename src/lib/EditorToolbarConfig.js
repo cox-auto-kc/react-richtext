@@ -107,7 +107,7 @@ export const MASTER_EDITOR = {
   basicDropdowns: [
     {label: 'Select Style', config: BLOCK_TYPE_DROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
     {label: 'Select Font', config: INLINE_TYPE_FONTDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
-    {label: 'Font Size', config: INLINE_TYPE_FONTSIZEDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
+    {label: 'Size', config: INLINE_TYPE_FONTSIZEDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
   ],
   basicButtons: [
     {draftStyle:'inline', config: INLINE_STYLE_BUTTONS, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
