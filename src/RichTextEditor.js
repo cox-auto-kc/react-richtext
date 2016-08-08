@@ -42,6 +42,8 @@ export default class RichTextEditor extends Component {
     // If the user changes block type before entering any text, we can either
     // style the placeholder or hide it. Let's just hide it for now.
 
+    console.log(this.props.value);
+
     return (
         <div style={richTextEditorStyles.richtext}>
           <EditorToolbar className="toolbar"
@@ -126,7 +128,20 @@ export default class RichTextEditor extends Component {
   // If the cursor is in an empty list item when return is pressed, then the
   // block type should change to normal (end the list).
   _handleReturnEmptyListItem():boolean {
-    let editorState = this.props.value.getEditorState.bind(this);
+    //let editorState = this.props.value.getEditorState;
+
+    let editorState = this.props.value._editorState;
+
+    /*
+    console.log(this.props.value);
+    console.log(this.props.value._editorState);
+    console.log(this.props.value.getEditorState);
+
+    console.log(editorState);
+    console.log(typeof(editorState));
+    alert('stop');
+*/
+
     let selection = editorState.getSelection();
     if (selection.isCollapsed()) {
       let contentState = editorState.getCurrentContent();

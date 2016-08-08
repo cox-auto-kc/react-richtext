@@ -14,6 +14,7 @@ export function getFuncName(fn) {
 export function getCurrentBlockType() {
     let {editorState} = this.props;
     let selection = editorState.getSelection();
+
     return editorState
         .getCurrentContent()
         .getBlockForKey(selection.getStartKey())
