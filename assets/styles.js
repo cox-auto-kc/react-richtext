@@ -150,7 +150,7 @@ const styles={
     popoverLinkStyles: {
         popoverContainer: {
             padding: '0px 8px',
-            minWidth: '290px',
+            minWidth: '300px',
         },
         inner:{
             display:'flex',
