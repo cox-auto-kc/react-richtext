@@ -97,7 +97,7 @@ export default class RichTextEditor extends Component {
 
   // `shift + return` should insert a soft newline.
   _handleReturnSoftNewline(event:Object):boolean {
-    let editorState = this.props.value.getEditorState.bind(this);
+    let editorState = this.props.value.getEditorState();
     if (isSoftNewlineEvent(event)) {
       let selection = editorState.getSelection();
       if (selection.isCollapsed()) {
@@ -126,7 +126,7 @@ export default class RichTextEditor extends Component {
   // If the cursor is in an empty list item when return is pressed, then the
   // block type should change to normal (end the list).
   _handleReturnEmptyListItem():boolean {
-    let editorState = this.props.value.getEditorState.bind(this);
+    let editorState = this.props.value.getEditorState();
     let selection = editorState.getSelection();
     if (selection.isCollapsed()) {
       let contentState = editorState.getCurrentContent();
@@ -147,7 +147,7 @@ export default class RichTextEditor extends Component {
   // If the cursor is at the end of a special block (any block type other than
   // normal or list item) when return is pressed, new block should be normal.
   _handleReturnSpecialBlock():boolean {
-    let editorState = this.props.value.getEditorState.bind(this);
+    let editorState = this.props.value.getEditorState();
     let selection = editorState.getSelection();
     if (selection.isCollapsed()) {
       let contentState = editorState.getCurrentContent();
