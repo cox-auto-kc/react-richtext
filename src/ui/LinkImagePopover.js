@@ -35,8 +35,8 @@ class LinkImagePopover extends Component {
         } = this.props;
 
         let basis = (popoverBasis == 'left')? { 'left': 0 }:
-                    (popoverBasis == 'right')? { 'right': 0 }:
-                     null;
+            (popoverBasis == 'right')? { 'right': 0 }:
+                null;
 
         return (
             <div >
@@ -81,8 +81,8 @@ class LinkImagePopover extends Component {
 
         return (
             <div style={popoverLinkStyles.baseContainer}>
-                <div style={popoverLinkStyles.popoverButtonsWrap}>
-                     <Button
+                <div style={popoverLinkStyles.basePopoverTrigger}>
+                    <Button
                         label={label}
                         onClick={this.toggleLink}
                     >

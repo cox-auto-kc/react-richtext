@@ -43,15 +43,15 @@ class ColorsButtonPopover extends Component {
         let popoverConfig = popoverColorsSrc[popoverKey];
         let renderColorsButtons = this.renderColorsButtons();
         let renderDisplayLabel = (popoverConfig.displayLabel != null) ?
-                                <div style={popoverColorsStyles.basePopoverLabel}>
-                                    {popoverConfig.displayLabel}
-                                </div> :
-                                null;
+            <div style={popoverColorsStyles.basePopoverLabel}>
+                {popoverConfig.displayLabel}
+            </div> :
+            null;
 
 
         let getPopoverBasis = (popoverConfig.popoverBasis != undefined) ? popoverConfig.popoverBasis : popoverBasis;
         let basis = (getPopoverBasis == 'left')? { 'left': 0 }:
-                (getPopoverBasis == 'right')? { 'right': 0 }:
+            (getPopoverBasis == 'right')? { 'right': 0 }:
                 null;
 
 
@@ -104,6 +104,7 @@ class ColorsButtonPopover extends Component {
         } = this.state;
         let {
             popoverColorsSrc,
+            popoverColorsStyles,
             customColor
         } = this.props;
 
