@@ -36,10 +36,15 @@ class LinkInputPopover extends Component {
     renderPopover() {
         let { popoverLinkStyles } = this.props;
 
+
+        let basis = (popoverBasis == 'left')? { 'left': 0 }:
+                    (popoverBasis == 'right')? { 'right': 0 }:
+                    null;
+
         return (
             <div>
                 <form
-                    style={Object.assign({},{border: '1px solid '+ this.props.customColor}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
+                    style={Object.assign({}, basis, {border: '1px solid '+ this.props.customColor}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
 
                 >
                     <div style={popoverLinkStyles.inner}>
@@ -115,6 +120,7 @@ class LinkInputPopover extends Component {
 
 LinkInputPopover.propTypes = {
     popoverLinkStyles: PropTypes.object,
+    popoverBasis: PropTypes.string,
     editorState: PropTypes.object,
     label: PropTypes.string,
     entityLink: PropTypes.object,
@@ -123,6 +129,7 @@ LinkInputPopover.propTypes = {
 LinkInputPopover.defaultProps = {
     popoverLinkStyles: Object.assign({}, styles.popoverLinkStyles, styles.baseStyles),
     entityLink: ENTITY_TYPE,
+    popoverBasis: 'left',
 };
 
 export default LinkInputPopover;

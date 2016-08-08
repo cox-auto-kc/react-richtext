@@ -29,13 +29,19 @@ class LinkImagePopover extends Component {
     }
 
     renderPopover() {
-        let { popoverLinkStyles } = this.props;
+        let {
+            popoverLinkStyles,
+            popoverBasis
+        } = this.props;
+
+        let basis = (popoverBasis == 'left')? { 'left': 0 }:
+                    (popoverBasis == 'right')? { 'right': 0 }:
+                     null;
 
         return (
-            <div>
+            <div >
                 <form
-                    style={Object.assign({}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
-
+                    style={Object.assign({}, basis, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
                 >
                     <div style={popoverLinkStyles.inner}>
                         <input
@@ -90,12 +96,14 @@ class LinkImagePopover extends Component {
 
 LinkImagePopover.propTypes = {
     popoverLinkStyles: PropTypes.object,
+    popoverBasis: PropTypes.string,
     editorState: PropTypes.object,
     label: PropTypes.string,
 };
 
 LinkImagePopover.defaultProps = {
     popoverLinkStyles: Object.assign({}, styles.popoverLinkStyles, styles.baseStyles),
+    popoverBasis: 'right',
 };
 
 export default LinkImagePopover;
