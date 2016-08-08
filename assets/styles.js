@@ -4,25 +4,6 @@ const styles={
             display: 'inline-block',
             verticalAlign: 'top',
         },
-        basePopoverTrigger: {
-            position: 'relative',
-            display: 'inline-block'
-        },
-        basePopoverContainer: {
-            position:'absolute',
-            zIndex: 2,
-            background: '#fdfdfd',
-            borderRadius: 0,
-            boxSizing: 'border-box',
-            boxShadow: '0 5px 10px rgba(0,0,0,.2)',
-            border: '1px solid rgba(0, 0, 0, .1)',
-        },
-        basePopoverLabel: {
-            color: '#999',
-            fontSize: '14px',
-            lineHeight: '20px',
-            padding: '2px 0',
-        },
         basePopoverBackdrop: {
             position: 'fixed',
             zIndex: 1,
@@ -31,6 +12,22 @@ const styles={
             left: 0,
             right: 0,
             background: 'rgba(0, 0, 0, .01)',
+        },
+        basePopoverContainer: {
+            position:'absolute',
+            zIndex: 2,
+            fontSize: '14px',
+            background: '#fdfdfd',
+            borderRadius: 0,
+            boxSizing: 'border-box',
+            boxShadow: '0 5px 10px rgba(0,0,0,.2)',
+            border: '1px solid rgba(0,0,0,.2)',
+        },
+        basePopoverLabel: {
+            color: 'grey',
+            fontSize: '14px',
+            lineHeight: '20px',
+            padding: '2px 0',
         },
     },
     buttonStyles: {

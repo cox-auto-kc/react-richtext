@@ -1,0 +1,47 @@
+diff a/assets/styles.js b/assets/styles.js	(rejected hunks)
+@@ -4,31 +4,34 @@
+             display: 'inline-block',
+             verticalAlign: 'top',
+         },
+-        basePopoverBackdrop: {
+-            position: 'fixed',
+-            zIndex: 1,
+-            top: 0,
+-            bottom: 0,
+-            left: 0,
+-            right: 0,
+-            background: 'rgba(0, 0, 0, .01)',
++        basePopoverTrigger: {
++            position: 'relative',
++            display: 'inline-block'
+         },
+         basePopoverContainer: {
+             position:'absolute',
+             zIndex: 2,
+-            fontSize: '14px',
+             background: '#fdfdfd',
+             borderRadius: 0,
+             boxSizing: 'border-box',
+             boxShadow: '0 5px 10px rgba(0,0,0,.2)',
+-            border: '1px solid rgba(0,0,0,.2)',
++            border: '1px solid rgba(0, 0, 0, .1)',
+         },
+         basePopoverLabel: {
+-            color: 'grey',
++            color: '#999',
+             fontSize: '14px',
+             lineHeight: '20px',
+             padding: '2px 0',
+         },
++        basePopoverBackdrop: {
++            position: 'fixed',
++            zIndex: 1,
++            top: 0,
++            bottom: 0,
++            left: 0,
++            right: 0,
++            background: 'rgba(0, 0, 0, .01)',
++        },
+     },
+     buttonStyles: {
+         button: {

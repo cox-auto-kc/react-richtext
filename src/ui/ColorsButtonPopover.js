@@ -104,7 +104,6 @@ class ColorsButtonPopover extends Component {
         } = this.state;
         let {
             popoverColorsSrc,
-            popoverColorsStyles,
             customColor
         } = this.props;
 

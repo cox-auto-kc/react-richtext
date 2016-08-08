@@ -81,7 +81,7 @@ class LinkImagePopover extends Component {
 
         return (
             <div style={popoverLinkStyles.baseContainer}>
-                <div style={popoverLinkStyles.basePopoverTrigger}>
+                <div style={popoverLinkStyles.popoverButtonsWrap}>
                      <Button
                         label={label}
                         onClick={this.toggleLink}

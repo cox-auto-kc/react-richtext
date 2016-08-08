@@ -34,7 +34,7 @@ class LinkInputPopover extends Component {
     }
 
     renderPopover() {
-        let { popoverLinkStyles, popoverBasis } = this.props;
+        let { popoverLinkStyles } = this.props;
 
 
         let basis = (popoverBasis == 'left')? { 'left': 0 }:
@@ -97,7 +97,7 @@ class LinkInputPopover extends Component {
         return (
             <div style={popoverLinkStyles.baseContainer}>
 
-                <div style={popoverLinkStyles.basePopoverTrigger}>
+                <div style={popoverLinkStyles.popoverButtonsWrap}>
                     <Button
                         label={label}
                         isDisabled={!shouldShowLinkButton}
@@ -106,7 +106,7 @@ class LinkInputPopover extends Component {
                         {renderPopover}
                     </Button>
                 </div>
-                <div style={popoverLinkStyles.basePopoverTrigger}>
+                <div style={popoverLinkStyles.popoverButtonsWrap}>
                     <Button
                         label="Remove Link"
                         isDisabled={!isCursorOnLink}
