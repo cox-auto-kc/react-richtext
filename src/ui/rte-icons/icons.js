@@ -29,6 +29,9 @@ import IconImage from './icon-image';
 import IconExpandMore from './icon-expand-more';
 import IconLocalImage from './icon-local-image';
 
+import IconColorPallete from './icon-colorpalette';
+import IconAttachment from './icon-attachment';
+
 export { 
 	IconAccept, 
 	IconBlockquote, 
@@ -50,4 +53,6 @@ export {
 	IconImage,
 	IconExpandMore,
 	IconLocalImage,
+	IconColorPallete,
+	IconAttachment,
 	};

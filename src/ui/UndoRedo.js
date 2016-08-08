@@ -1,7 +1,7 @@
 import React, {Component,PropTypes} from 'react';
 import Button from './Button';
 import {undo,redo,} from '../functions/editorMethods';
-
+import styles from '../../assets/styles';
 
 class UndoRedo extends Component {
     constructor(props) {
@@ -16,12 +16,12 @@ class UndoRedo extends Component {
         let canUndo = this.props.editorState.getUndoStack().size !== 0;
         let canRedo = this.props.editorState.getRedoStack().size !== 0;
         return (
-            <span>
+            <div style={styles.buttongroup}>
                 <Button label={label} isDisabled={!canUndo} onClick={this.undo} focusOnClick={false} />
 
                 <Button label="Redo" isDisabled={!canRedo} onClick={this.redo} focusOnClick={false}/>
 
-            </span>
+            </div>
         );
     }
 }

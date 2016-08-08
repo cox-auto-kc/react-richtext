@@ -28,6 +28,11 @@ export default class EditorToolbar extends Component {
                     editorState={this.props.editorState}
                     onChange={this.props.onChange}
                 />
+                <ColorsButtonPopover
+                    popoverColorsSrc={MASTER_EDITOR.popoverColors}
+                    editorState={this.props.editorState}
+                    onChange={this.props.onChange}
+                />
                 <ToolbarButtons
                     buttonsSrc={MASTER_EDITOR.basicButtons}
                     editorState={this.props.editorState}
@@ -38,18 +43,13 @@ export default class EditorToolbar extends Component {
                     editorState={this.props.editorState}
                     onChange={this.props.onChange}
                 />
-                <ColorsButtonPopover
-                    popoverColorsSrc={MASTER_EDITOR.popoverColors}
+                <UndoRedo
+                    label={"Undo"}
                     editorState={this.props.editorState}
                     onChange={this.props.onChange}
                 />
                 <LinkImagePopover
                     label={"Image"}
-                    editorState={this.props.editorState}
-                    onChange={this.props.onChange}
-                />
-                <UndoRedo
-                    label={"Undo"}
                     editorState={this.props.editorState}
                     onChange={this.props.onChange}
                 />

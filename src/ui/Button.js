@@ -17,7 +17,8 @@ import {IconAccept,
     IconUnorderedList,
     IconColorFill,
     IconImage,
-    IconLocalImage} from './rte-icons/icons'
+    IconAttachment,
+    IconColorPallete} from './rte-icons/icons'
 
 import styles from '../../assets/styles';
 
@@ -37,36 +38,36 @@ class Button extends Component{
         let styles={
             btnStyles: {
                 /*
-                display: 'inline-block',
-                margin: '0px 5px 0px 0px',
-                padding: '3px 8px',
-                height: 32,
-                lineHeight: 1.5,
-                boxSizing: 'border-box',
-                */
-                background: this.props.isActive? 'none #d8d8d8': '#ffffff',
+                 display: 'inline-block',
+                 margin: '0px 5px 0px 0px',
+                 padding: '3px 8px',
+                 height: 32,
+                 lineHeight: 1.5,
+                 boxSizing: 'border-box',
+                 */
+                background: this.props.isActive? 'none #d8d8d8': '#F3F3F3',
                 /*
-                border: '1px solid #0585c8',
-                borderRadius: 3,
-                color: '#0585c8',
-                textDecoration: 'none',
-                fontSize: 13,
-                fontFamily: '"Roboto Condensed",sans-serif',
-                whiteSpace: ' nowrap',
-                */
+                 border: '1px solid #0585c8',
+                 borderRadius: 3,
+                 color: '#0585c8',
+                 textDecoration: 'none',
+                 fontSize: 13,
+                 fontFamily: '"Roboto Condensed",sans-serif',
+                 whiteSpace: ' nowrap',
+                 */
                 cursor: this.props.isDisabled ? 'not-allowed':'pointer',
                 /*
-                fontWeight: 400,
-                marginBottom: 5,
-                marginRight: 5,
-                */
+                 fontWeight: 400,
+                 marginBottom: 5,
+                 marginRight: 5,
+                 */
             },
             icon: {
                 /*
-                fill: '#0585c8',
-                paddingRight: 5,
-                paddingLeft: 5,
-                */
+                 fill: '#0585c8',
+                 paddingRight: 5,
+                 paddingLeft: 5,
+                 */
                 opacity:this.props.isDisabled ? 0.5:'',
             },
         };
@@ -78,24 +79,25 @@ class Button extends Component{
         let thisStyle=this.getStyles();
         let displayIcon= this.props.label ==='Bold'? <IconBold /> :
             this.props.label ==='Monospace'? <IconCode /> :
-            this.props.label ==='Italic'? <IconItalic /> :
-            this.props.label ==='underline'? <IconUnderline /> :
-            this.props.label ==='Strikethrough'? <IconStrikethrough /> :
-            this.props.label ==='LeftIndent'? <IconLeftIndent /> :
-            this.props.label ==='RightIndent'? <IconRightIndent /> :
-            this.props.label ==='OL'? <IconOrderedList /> :
-            this.props.label==='UL'? <IconUnorderedList /> :
-            this.props.label ==='Link'? <IconLink /> :
-            this.props.label ==='Remove Link'? <IconRemoveLink /> :
-            this.props.label ==='Undo'? <IconUndo /> :
-            this.props.label ==='Redo'? <IconRedo /> :
-            this.props.label ==='Blockquote'? <IconBlockquote /> :
-            this.props.label ==='Color'? <IconColorFill /> :
-            this.props.label ==='Cancel'? <IconCancel /> :
-            this.props.label ==='Submit'? <IconAccept /> :
-            this.props.label ==='Image'? <IconImage /> :
-            this.props.label ==='LocalImage'? <IconLocalImage /> :
-            '';
+                this.props.label ==='Italic'? <IconItalic /> :
+                    this.props.label ==='underline'? <IconUnderline /> :
+                        this.props.label ==='Strikethrough'? <IconStrikethrough /> :
+                            this.props.label ==='LeftIndent'? <IconLeftIndent /> :
+                                this.props.label ==='RightIndent'? <IconRightIndent /> :
+                                    this.props.label ==='OL'? <IconOrderedList /> :
+                                        this.props.label==='UL'? <IconUnorderedList /> :
+                                            this.props.label ==='Link'? <IconLink /> :
+                                                this.props.label ==='Remove Link'? <IconRemoveLink /> :
+                                                    this.props.label ==='Undo'? <IconUndo /> :
+                                                        this.props.label ==='Redo'? <IconRedo /> :
+                                                            this.props.label ==='Blockquote'? <IconBlockquote /> :
+                                                                this.props.label ==='Color'? <IconColorFill /> :
+                                                                    this.props.label ==='Cancel'? <IconCancel /> :
+                                                                        this.props.label ==='Submit'? <IconAccept /> :
+                                                                            this.props.label ==='Image'? <IconImage /> :
+                                                                                this.props.label ==='LocalImage'? <IconAttachment /> :
+                                                                                    this.props.label ==='ColorFill'? <IconColorPallete />:
+                                                                                    '';
 
         return(
             <span style={Object.assign({}, thisStyle.icon, buttonStyles.icon)}>{displayIcon}</span>
@@ -151,4 +153,3 @@ Button.defaultProps ={
 };
 
 export default Button;
-

@@ -2,8 +2,8 @@ export const INLINE_STYLE_BUTTONS = [
   {label: 'Bold', style: 'BOLD'},
   {label: 'Italic', style: 'ITALIC'},
   {label: 'underline', style: 'UNDERLINE'},
-  {label: 'Strikethrough', style: 'STRIKETHROUGH'},
-  {label: 'Monospace', style: 'CODE'},
+  //{label: 'Strikethrough', style: 'STRIKETHROUGH'},
+  //{label: 'Monospace', style: 'CODE'},
   {label: 'LeftIndent', style: 'leftindent'},
   {label: 'RightIndent', style: 'rightindent'},
 ];
@@ -105,9 +105,9 @@ export const FILL_TYPE_COLORDROPDOWN = [
 
 export const MASTER_EDITOR = {
   basicDropdowns: [
-    {label: 'Paragraph', config: BLOCK_TYPE_DROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
-    {label: 'Font', config: INLINE_TYPE_FONTDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
-    {label: 'Size', config: INLINE_TYPE_FONTSIZEDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
+    {label: 'Select Style', config: BLOCK_TYPE_DROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
+    {label: 'Select Font', config: INLINE_TYPE_FONTDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
+    {label: 'Font Size', config: INLINE_TYPE_FONTSIZEDROPDOWN, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
   ],
   basicButtons: [
     {draftStyle:'inline', config: INLINE_STYLE_BUTTONS, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleInlineStyle' },
@@ -115,7 +115,7 @@ export const MASTER_EDITOR = {
   ],
   popoverColors: [
     {label: 'Color', displayLabel: 'Select Font Color', popoverBasis: 'left', config: INLINE_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleInlineColorsStyle' },
-    {label: 'Color', displayLabel: 'Select Fill Color', popoverBasis: 'right', config: FILL_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleFillColorsStyle' },
+    {label: 'ColorFill', displayLabel: 'Select Fill Color', popoverBasis: 'right', config: FILL_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleFillColorsStyle' },
   ],
 };
 

@@ -84,7 +84,7 @@ class LinkInputPopover extends Component {
             popoverLinkStyles,
             label,
             entityLink
-        } = this.props;
+            } = this.props;
 
         let selection = this.props.editorState.getSelection();
         let hasSelection = !selection.isCollapsed();
@@ -95,23 +95,25 @@ class LinkInputPopover extends Component {
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
 
         return (
-            <div style={popoverLinkStyles.baseContainer}>
+            <div style={styles.buttongroup}>
+                <div style={popoverLinkStyles.baseContainer}>
 
-                <div style={popoverLinkStyles.basePopoverTrigger}>
-                    <Button
-                        label={label}
-                        isDisabled={!shouldShowLinkButton}
-                        onClick={this.toggleLink}
-                    >
-                        {renderPopover}
-                    </Button>
-                </div>
-                <div style={popoverLinkStyles.basePopoverTrigger}>
-                    <Button
-                        label="Remove Link"
-                        isDisabled={!isCursorOnLink}
-                        onClick={this.removeLink}
-                    />
+                    <div style={popoverLinkStyles.basePopoverTrigger}>
+                        <Button
+                            label={label}
+                            isDisabled={!shouldShowLinkButton}
+                            onClick={this.toggleLink}
+                        >
+                            {renderPopover}
+                        </Button>
+                    </div>
+                    <div style={popoverLinkStyles.basePopoverTrigger}>
+                        <Button
+                            label="Remove Link"
+                            isDisabled={!isCursorOnLink}
+                            onClick={this.removeLink}
+                        />
+                    </div>
                 </div>
             </div>
         );

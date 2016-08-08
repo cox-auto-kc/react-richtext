@@ -13,7 +13,6 @@ import {
 } from './../lib/EditorToolbarConfig';
 
 import Button from './Button';
-
 import styles from '../../assets/styles';
 
 class ToolbarButtons extends Component{
@@ -59,7 +58,12 @@ class ToolbarButtons extends Component{
                 ));
 
             return (
-                <span key={ButtonKey}>{Buttons}</span>
+
+                <div style={styles.buttongroup} key={ButtonKey} >
+                    {Buttons}
+
+                </div>
+
             );
         });
 

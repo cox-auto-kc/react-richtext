@@ -1,8 +1,19 @@
 const styles={
+    buttongroup: {
+        display: 'inline-block',
+        verticalAlign: 'top',
+        marginRight: 0,
+        whiteSpace: 'nowrap',
+        borderLeft: '1px solid #ddd'
+
+    },
+
     baseStyles: {
         baseContainer: {
             display: 'inline-block',
             verticalAlign: 'top',
+            marginRight: 0,
+            borderLeft: '1px solid #ddd'
         },
         basePopoverTrigger: {
             position: 'relative',
@@ -36,14 +47,13 @@ const styles={
     buttonStyles: {
         button: {
             display: 'inline-block',
-            margin: '0px 5px 0px 0px',
-            padding: '3px 8px',
-            height: 32,
+            margin: '5px 5px 0 0',
+            padding: '3px ',
+            height: 30,
             lineHeight: 1.5,
             boxSizing: 'border-box',
-            border: '1px solid #0585c8',
-            borderRadius: 3,
-            color: '#0585c8',
+            border: 'none',
+            color: '#000000',
             textDecoration: 'none',
             fontSize: 13,
             fontFamily: '"Roboto Condensed",sans-serif',
@@ -53,7 +63,7 @@ const styles={
             marginRight: 5,
         },
         icon: {
-            fill: '#0585c8',
+            fill: '#000000',
             paddingRight: 5,
             paddingLeft: 5,
         },
@@ -98,6 +108,7 @@ const styles={
     },
     editorToolbarStyles: {
         toolbarContainer: {
+            background: '#F3F3F3',
             fontFamily: '"Roboto Condensed",sans-serif',
             fontSize: '14px',
             marginBottom: '-5px',
@@ -129,7 +140,7 @@ const styles={
             width: 190,
         },
         popoverColorButtons: {
-            display:'inline-block',
+            //display:'inline-block',
             height: 16,
             width: 16,
             marginTop: 0,
@@ -160,7 +171,7 @@ const styles={
             flex: '1 0 auto',
             height: '30px',
             background: 'none white',
-            border: '1px solid  #0585c8',
+            border: '1px solid',
             borderRadius: '2px',
             boxSizing: 'border-box',
             padding: '4px',
@@ -193,13 +204,10 @@ const styles={
         root: {
             display: 'inline-block',
             position: 'relative',
-
-
             lineHeight: '22px',
             verticalAlign: 'top',
-            borderColor: '#0585c8',
             borderRadius: '3px',
-            border: '1px solid #0585c8'
+            border: 'none'
         },
         select: {
             position: 'relative',
@@ -226,7 +234,7 @@ const styles={
             position: 'absolute',
             zIndex: 1,
             left: 0,
-            top: 0,
+            top: 5,
             right: 0,
             bottom: 0,
             lineHeight: '1.5',
@@ -234,7 +242,7 @@ const styles={
             borderRadius: '3px',
             fontWeight: 400,
             fontSize: '16px',
-            color: '#0585c8',
+            color: '#000000',
             padding: '3px',
             paddingRight: '15px',
             paddingLeft: '12px',

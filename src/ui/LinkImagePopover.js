@@ -32,7 +32,7 @@ class LinkImagePopover extends Component {
         let {
             popoverLinkStyles,
             popoverBasis
-        } = this.props;
+            } = this.props;
 
         let basis = (popoverBasis == 'left')? { 'left': 0 }:
             (popoverBasis == 'right')? { 'right': 0 }:
@@ -80,16 +80,19 @@ class LinkImagePopover extends Component {
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
 
         return (
-            <div style={popoverLinkStyles.baseContainer}>
-                <div style={popoverLinkStyles.basePopoverTrigger}>
-                    <Button
-                        label={label}
-                        onClick={this.toggleLink}
-                    >
-                        {renderPopover}
-                    </Button>
+            <div style={styles.buttongroup}>
+                <div style={popoverLinkStyles.baseContainer}>
+
+                    <div style={popoverLinkStyles.basePopoverTrigger}>
+                        <Button
+                            label={label}
+                            onClick={this.toggleLink}
+                        >
+                            {renderPopover}
+                        </Button>
+                    </div>
                 </div>
-            </div>
+                </div>
         );
     }
 }
