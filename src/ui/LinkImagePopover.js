@@ -80,7 +80,7 @@ class LinkImagePopover extends Component {
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
 
         return (
-            <div style={styles.buttongroup}>
+
                 <div style={popoverLinkStyles.baseContainer}>
 
                     <div style={popoverLinkStyles.basePopoverTrigger}>
@@ -92,7 +92,7 @@ class LinkImagePopover extends Component {
                         </Button>
                     </div>
                 </div>
-                </div>
+
         );
     }
 }

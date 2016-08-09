@@ -48,6 +48,7 @@ export default class EditorToolbar extends Component {
                     editorState={this.props.editorState}
                     onChange={this.props.onChange}
                 />
+                <div style={styles.buttongroup}>
                 <LinkImagePopover
                     label={"Image"}
                     editorState={this.props.editorState}
@@ -59,6 +60,7 @@ export default class EditorToolbar extends Component {
                     onChange={this.props.onChange}
                 />
             </div>
+           </div>
         );
     }
 }
