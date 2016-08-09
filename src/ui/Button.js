@@ -36,38 +36,11 @@ class Button extends Component{
 
     getStyles(){
         let styles={
-            btnStyles: {
-                /*
-                 display: 'inline-block',
-                 margin: '0px 5px 0px 0px',
-                 padding: '3px 8px',
-                 height: 32,
-                 lineHeight: 1.5,
-                 boxSizing: 'border-box',
-                 */
+            button: {
                 background: this.props.isActive? 'none #d8d8d8': '#F3F3F3',
-                /*
-                 border: '1px solid #0585c8',
-                 borderRadius: 3,
-                 color: '#0585c8',
-                 textDecoration: 'none',
-                 fontSize: 13,
-                 fontFamily: '"Roboto Condensed",sans-serif',
-                 whiteSpace: ' nowrap',
-                 */
                 cursor: this.props.isDisabled ? 'not-allowed':'pointer',
-                /*
-                 fontWeight: 400,
-                 marginBottom: 5,
-                 marginRight: 5,
-                 */
             },
             icon: {
-                /*
-                 fill: '#0585c8',
-                 paddingRight: 5,
-                 paddingLeft: 5,
-                 */
                 opacity:this.props.isDisabled ? 0.5:'',
             },
         };
@@ -97,7 +70,10 @@ class Button extends Component{
                                                                             this.props.label ==='Image'? <IconImage /> :
                                                                                 this.props.label ==='LocalImage'? <IconAttachment /> :
                                                                                     this.props.label ==='ColorFill'? <IconColorPallete />:
-                                                                                    '';
+                                                                                        '';
+
+
+
 
         return(
             <span style={Object.assign({}, thisStyle.icon, buttonStyles.icon)}>{displayIcon}</span>
@@ -121,7 +97,7 @@ class Button extends Component{
                   type={type}
                   customColor={this.props.customColor}
                   onClick={OnClick}
-                  style={Object.assign({}, thisStyle.btnStyles, buttonStyles.button, passedButtonStyles )}
+                  style={Object.assign({}, thisStyle.button, buttonStyles.button, passedButtonStyles )}
               >
                   {this.renderIcons()}
               </button>
@@ -153,3 +129,4 @@ Button.defaultProps ={
 };
 
 export default Button;
+

@@ -61,6 +61,7 @@ const styles={
             fontWeight: 400,
             marginBottom: 5,
             marginRight: 5,
+            outline: 'none',
         },
         icon: {
             fill: '#000000',
