@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react';
 //import { MASTER_EDITOR } from '../lib/EditorToolbarConfig'; //not currently needed as this is not controlled by config
 import {
     togglePopover,
+    closePopoverOnResize,
     addImageLink,
     toggleLink,
     updateLinkInputValue,
@@ -22,10 +23,19 @@ class LinkImagePopover extends Component {
 
         this.getEntity = getEntity.bind(this);
         this.togglePopover = togglePopover.bind(this);
+        this.closePopoverOnResize = closePopoverOnResize.bind(this);
         this.toggleLink = toggleLink.bind(this);
         this.addImageLink = addImageLink.bind(this);
         this.updateLinkInputValue = updateLinkInputValue.bind(this);
         this.handleOnKeyPress = handleOnKeyPress.bind(this, this.addImageLink);
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.closePopoverOnResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.closePopoverOnResize);
     }
 
     renderPopover() {

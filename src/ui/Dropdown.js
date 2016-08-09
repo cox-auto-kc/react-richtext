@@ -14,7 +14,7 @@ class Dropdown extends Component {
     }
 
     renderChoices(){
-        let {choices} = this.props;
+        let {choices, dropdownStyles} = this.props;
         let entries = Array.from(choices.entries());
         return entries.map(([key, text]) => (
             <option
@@ -29,7 +29,6 @@ class Dropdown extends Component {
     render(){
         let {
             selectedKey,
-            className,
             dropdownTitle,
             dropdownStyles,
             } = this.props;
@@ -43,7 +42,7 @@ class Dropdown extends Component {
               onChange={this.onChange}
               style={dropdownStyles.select}
           >
-              {renderChoices}
+                {renderChoices}
           </select>
 
           <span style={dropdownStyles.value} >
@@ -60,7 +59,6 @@ class Dropdown extends Component {
 Dropdown.propTypes = {
     choices: PropTypes.object,
     selectedKey: PropTypes.string,
-    className: PropTypes.string,
     dropdownTitle: PropTypes.string,
     dropdownStyles: PropTypes.object,
 };

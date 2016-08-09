@@ -4,6 +4,7 @@ import {ENTITY_TYPE} from 'draft-js-utils';
 import {
     setLink,
     togglePopover,
+    closePopoverOnResize,
     toggleLink,
     removeLink,
     updateLinkInputValue,
@@ -24,6 +25,7 @@ class LinkInputPopover extends Component {
         };
 
         this.togglePopover = togglePopover.bind(this);
+        this.closePopoverOnResize = closePopoverOnResize.bind(this);
         this.setLink = setLink.bind(this);
         this.toggleLink = toggleLink.bind(this);
         this.removeLink = removeLink.bind(this);
@@ -31,6 +33,15 @@ class LinkInputPopover extends Component {
 
         this.getEntity = getEntity.bind(this);
         this.handleOnKeyPress = handleOnKeyPress.bind(this, this.setLink);
+    }
+
+
+    componentDidMount() {
+        window.addEventListener('resize', this.closePopoverOnResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.closePopoverOnResize);
     }
 
     renderPopover() {

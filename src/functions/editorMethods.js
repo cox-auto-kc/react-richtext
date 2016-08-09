@@ -168,3 +168,9 @@ export function togglePopover(){
     let isShowing = this.state.showPopover;
     this.setState({showPopover: !isShowing})
 }
+
+export function closePopoverOnResize(){
+    if(this.state.showPopover){
+        this.togglePopover();
+    }
+}

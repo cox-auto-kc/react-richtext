@@ -7,7 +7,6 @@ const styles={
         borderLeft: '1px solid #ddd'
 
     },
-
     baseStyles: {
         baseContainer: {
             display: 'inline-block',
@@ -47,7 +46,7 @@ const styles={
     buttonStyles: {
         button: {
             display: 'inline-block',
-            margin: '5px 5px 0 0',
+            margin: '4px 4px 0 0',
             padding: '3px ',
             height: 30,
             lineHeight: 1.5,
@@ -141,7 +140,8 @@ const styles={
             width: 190,
         },
         popoverColorButtons: {
-            //display:'inline-block',
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            boxSizing: 'border-box',
             height: 16,
             width: 16,
             marginTop: 0,
@@ -149,8 +149,6 @@ const styles={
             marginBottom: 4,
             padding: 0,
             lineHeight: 1.5,
-            boxSizing: 'border-box',
-            border: '1px solid rgba(0, 0, 0, 0.1)',
             borderRadius: 0,
             color: '#0585c8',
             textDecoration:'none',
@@ -161,7 +159,6 @@ const styles={
     },
     popoverLinkStyles: {
         popoverContainer: {
-            padding: '0px 8px',
             minWidth: '300px',
         },
         inner:{
@@ -172,14 +169,15 @@ const styles={
             flex: '1 0 auto',
             height: '30px',
             background: 'none white',
-            border: '1px solid',
+            border: '1px solid rgba(0, 0, 0, .1)',
+            outlineColor: 'rgba(0, 0, 0, .25)',
             borderRadius: '2px',
             boxSizing: 'border-box',
             padding: '4px',
             fontFamily: 'inherit',
             fontSize: 'inherit',
             lineHeight: '24px',
-            margin: '5px',
+            margin: '4px',
         },
         buttonGroup: {
             display: 'inline-block',
@@ -227,9 +225,9 @@ const styles={
             background: 'none transparent',
             opacity: 0,
             cursor: 'pointer',
-            paddingRight: '10px'
+            paddingRight: '10px',
+            width: 120,
         },
-
         value: {
             display: 'block',
             position: 'absolute',
