@@ -63,7 +63,7 @@ export function setLink() {
 }
 
 export function toggleLink(event){
-    let popoverPlacement = getCoordinates(event);
+    let popoverPlacement = setPopoverPlacement(event);
     this.togglePopover(popoverPlacement);
     let {editorState} = this.props;
     let entity = getEntityAtCursor(editorState);
@@ -91,7 +91,7 @@ export function getEntity() {
 }
 
 export function toggleColorsTrigger(key, event){
-    let popoverPlacement = getCoordinates(event);
+    let popoverPlacement = setPopoverPlacement(event);
     this.setState({
         showPopover: true,
         popoverBasis: popoverPlacement,
@@ -167,10 +167,16 @@ export function insertImage(file) {
     ));
 }
 
-export function getCoordinates(e){
-    let fromRight = window.innerWidth - e.clientX;
+export function setPopoverPlacement(e){
+    let thisWidth = window.innerWidth;
+    let fromRight = thisWidth - e.clientX;
+    let fromLeft = e.clientX;
+    let popMaxWidth = 300;
 
-    let popoverPlacement = (fromRight < 300)? {'right': 0} : {'left': 0};
+    let popoverPlacement = (fromRight < popMaxWidth && fromLeft < popMaxWidth)? {'left': 0, 'maxWidth': thisWidth, 'position': 'fixed'} :
+        (fromRight < popMaxWidth)? {'right': 0, 'maxWidth': popMaxWidth, 'position': 'absolute'}:
+        {'left': 0, 'maxWidth': popMaxWidth, 'position': 'absolute'};
+
     return popoverPlacement;
 }
 

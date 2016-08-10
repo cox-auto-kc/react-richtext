@@ -51,6 +51,7 @@ export default class RichTextEditor extends Component {
 
     render():React.Element {
         let {props} = this;
+        let {richTextEditorStyles} = props;
         let editorState = props.value.getEditorState();
 
         let placeholder = props.placeholder ? props.placeholder : '';
@@ -109,8 +110,13 @@ function createValueFromString(markup: string, format: string): EditorValue {
 export {EditorValue, decorator, createEmptyValue, createValueFromString};
 
 RichTextEditor.propTypes = {
+    richTextEditorStyles: PropTypes.object,
     className: PropTypes.string,
     placeholder: PropTypes.string,
     toolbarColor: PropTypes.string,
     value : PropTypes.object,
 };
+
+RichTextEditor.defaultProps = {
+    richTextEditorStyles: styles.richTextEditorStyles,
+}

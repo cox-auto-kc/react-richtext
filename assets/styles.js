@@ -19,7 +19,7 @@ const styles={
             display: 'inline-block'
         },
         basePopoverContainer: {
-            position:'absolute',
+            //position:'absolute',
             zIndex: 2,
             background: '#fdfdfd',
             borderRadius: 0,
@@ -159,7 +159,7 @@ const styles={
     },
     popoverLinkStyles: {
         popoverContainer: {
-            minWidth: '300px',
+//            minWidth: '300px',
         },
         inner:{
             display:'flex',
