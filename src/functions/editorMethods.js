@@ -62,8 +62,9 @@ export function setLink() {
     this.togglePopover();
 }
 
-export function toggleLink(){
-    this.togglePopover();
+export function toggleLink(event){
+    let popoverPlacement = getCoordinates(event);
+    this.togglePopover(popoverPlacement);
     let {editorState} = this.props;
     let entity = getEntityAtCursor(editorState);
     if (entity == null) {
@@ -89,9 +90,11 @@ export function getEntity() {
     return (entity == null) ? null : Entity.get(entity.entityKey);
 }
 
-export function toggleColorsTrigger(key){
+export function toggleColorsTrigger(key, event){
+    let popoverPlacement = getCoordinates(event);
     this.setState({
         showPopover: true,
+        popoverBasis: popoverPlacement,
         popoverKey: key
     });
 }
@@ -164,9 +167,19 @@ export function insertImage(file) {
     ));
 }
 
-export function togglePopover(){
+export function getCoordinates(e){
+    let fromRight = window.innerWidth - e.clientX;
+
+    let popoverPlacement = (fromRight < 300)? {'right': 0} : {'left': 0};
+    return popoverPlacement;
+}
+
+export function togglePopover(popoverPlacement){
     let isShowing = this.state.showPopover;
-    this.setState({showPopover: !isShowing})
+    this.setState({
+        showPopover: !isShowing,
+        popoverBasis: popoverPlacement,
+    });
 }
 
 export function closePopoverOnResize(){

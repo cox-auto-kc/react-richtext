@@ -114,8 +114,8 @@ export const MASTER_EDITOR = {
     {draftStyle:'block', config:  BLOCK_TYPE_BUTTONS, blockMethod: 'getCurrentBlockType', changeMethod: 'toggleBlockType' },
   ],
   popoverColors: [
-    {label: 'Color', displayLabel: 'Select Font Color', popoverBasis: 'left', config: INLINE_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleInlineColorsStyle' },
-    {label: 'ColorFill', displayLabel: 'Select Fill Color', popoverBasis: 'right', config: FILL_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleFillColorsStyle' },
+    {label: 'Color', displayLabel: 'Select Font Color', config: INLINE_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleInlineColorsStyle' },
+    {label: 'ColorFill', displayLabel: 'Select Fill Color', config: FILL_TYPE_COLORDROPDOWN, changeMethod: 'toggleColorsTrigger', selectMethod: 'toggleFillColorsStyle' },
   ],
 };
 

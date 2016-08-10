@@ -18,6 +18,7 @@ class LinkImagePopover extends Component {
         super(props);
         this.state ={
             showPopover: false,
+            popoverBasis: {'left': 0},
             inputRef: '',
         };
 
@@ -28,6 +29,8 @@ class LinkImagePopover extends Component {
         this.addImageLink = addImageLink.bind(this);
         this.updateLinkInputValue = updateLinkInputValue.bind(this);
         this.handleOnKeyPress = handleOnKeyPress.bind(this, this.addImageLink);
+
+
     }
 
     componentDidMount() {
@@ -41,17 +44,16 @@ class LinkImagePopover extends Component {
     renderPopover() {
         let {
             popoverLinkStyles,
-            popoverBasis
             } = this.props;
 
-        let basis = (popoverBasis == 'left')? { 'left': 0 }:
-            (popoverBasis == 'right')? { 'right': 0 }:
-                null;
+        let {
+            popoverBasis
+            } = this.state;
 
         return (
             <div >
                 <form
-                    style={Object.assign({}, basis, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
+                    style={Object.assign({}, popoverBasis, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
                 >
                     <div style={popoverLinkStyles.inner}>
                         <input
@@ -85,12 +87,12 @@ class LinkImagePopover extends Component {
         );
     }
 
+
     render() {
         let {label,popoverLinkStyles } = this.props;
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
 
         return (
-
                 <div style={popoverLinkStyles.baseContainer}>
 
                     <div style={popoverLinkStyles.basePopoverTrigger}>
@@ -109,14 +111,12 @@ class LinkImagePopover extends Component {
 
 LinkImagePopover.propTypes = {
     popoverLinkStyles: PropTypes.object,
-    popoverBasis: PropTypes.string,
     editorState: PropTypes.object,
     label: PropTypes.string,
 };
 
 LinkImagePopover.defaultProps = {
     popoverLinkStyles: Object.assign({}, styles.popoverLinkStyles, styles.baseStyles),
-    popoverBasis: 'right',
 };
 
 export default LinkImagePopover;

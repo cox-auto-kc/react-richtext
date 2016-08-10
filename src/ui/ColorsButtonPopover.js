@@ -24,6 +24,7 @@ class ColorsButtonPopover extends Component {
 
         this.state ={
             showPopover: false,
+            popoverBasis: {'left': 0},
             popoverKey: -1,
         };
 
@@ -36,7 +37,6 @@ class ColorsButtonPopover extends Component {
         this.toggleInlineColorsStyle = toggleInlineColorsStyle.bind(this);
     }
 
-
     componentDidMount() {
         window.addEventListener('resize', this.closePopoverOnResize);
     }
@@ -44,20 +44,18 @@ class ColorsButtonPopover extends Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.closePopoverOnResize);
     }
-    
+
     renderPopover(){
-        let {
-            popoverKey,
-        } = this.state;
         let {
             popoverColorsSrc,
             popoverColorsStyles,
-            popoverBasis,
             customColor
         } = this.props;
 
-
-
+        let {
+            popoverBasis,
+            popoverKey,
+        } = this.state;
 
         let popoverConfig = popoverColorsSrc[popoverKey];
         let renderColorsButtons = this.renderColorsButtons();
@@ -67,16 +65,9 @@ class ColorsButtonPopover extends Component {
             </div> :
             null;
 
-
-        let getPopoverBasis = (popoverConfig.popoverBasis != undefined) ? popoverConfig.popoverBasis : popoverBasis;
-        let basis = (getPopoverBasis == 'left')? { 'left': 0 }:
-            (getPopoverBasis == 'right')? { 'right': 0 }:
-                null;
-
-
         return (
             <div>
-                <div style={Object.assign({}, basis, {borderColor: customColor}, popoverColorsStyles.popoverContainer, popoverColorsStyles.basePopoverContainer )}>
+                <div style={Object.assign({}, popoverBasis, {borderColor: customColor}, popoverColorsStyles.popoverContainer, popoverColorsStyles.basePopoverContainer )}>
                     {renderDisplayLabel}
                     <div style={popoverColorsStyles.basePopoverLabel}>
                         {renderColorsButtons }
@@ -130,13 +121,14 @@ class ColorsButtonPopover extends Component {
 
         let triggerButtons = popoverColorsSrc.map(function(v, key){
             let toggleMethod = self.getFuncName(v.changeMethod).bind(this, key);
+
             let renderPopover = (showPopover && popoverKey == key) ? self.renderPopover(): null;
 
             return(
                 <div key={key} style={popoverColorsStyles.basePopoverTrigger}>
                     <Button
                         label={v.label}
-                        onToggle={toggleMethod}
+                        onClick={toggleMethod}
                         customColor={customColor}
                     />
                     {renderPopover}
@@ -166,7 +158,6 @@ class ColorsButtonPopover extends Component {
 ColorsButtonPopover.PropTypes ={
     popoverColorsSrc: PropTypes.array,
     popoverColorsStyles: PropTypes.object,
-    popoverBasis: PropTypes.string,
     editorState: PropTypes.object,
     onChange: PropTypes.object,
     customColor: PropTypes.string,
