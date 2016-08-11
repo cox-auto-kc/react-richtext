@@ -82,7 +82,7 @@ const styles={
             cursor: 'text',
             fontSize: '16px',
             marginTop: '10px',
-            height: '110px',
+            height: '150px',
             overflow: 'auto',
         },
 

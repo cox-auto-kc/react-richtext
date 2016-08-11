@@ -6,11 +6,14 @@ import changeBlockType from '../lib/changeBlockType';
 import insertBlockAfter from '../lib/insertBlockAfter';
 import isListItem from '../lib/isListItem';
 import isSoftNewlineEvent from 'draft-js/lib/isSoftNewlineEvent';
+import LinkDecorator from '../lib/LinkDecorator';
 import {BLOCK_TYPE} from 'draft-js-utils';
+import EditorValue from '../lib/EditorValue';
 import styles from '../../assets/styles';
 import styleMap from '../../assets/styleMap';
 import {ContentBlock} from 'draft-js';
 let richTextEditorStyles = styles.richTextEditorStyles;
+const decorator = new CompositeDecorator([LinkDecorator]);
 
 export function shouldHidePlaceholder():boolean {
     let editorState = this.props.value.getEditorState();
@@ -24,13 +27,13 @@ export function shouldHidePlaceholder():boolean {
 }
 
 export function handleReturn(event:Object):boolean {
-    if (this._handleReturnSoftNewline(event)) {
+    if (this.handleReturnSoftNewline(event)) {
         return true;
     }
-    if (this._handleReturnEmptyListItem()) {
+    if (this.handleReturnEmptyListItem()) {
         return true;
     }
-    if (this._handleReturnSpecialBlock()) {
+    if (this.handleReturnSpecialBlock()) {
         return true;
     }
     return false;
@@ -41,7 +44,7 @@ export function handleReturnSoftNewline(event:Object):boolean {
     if (isSoftNewlineEvent(event)) {
         let selection = editorState.getSelection();
         if (selection.isCollapsed()) {
-            onChange(RichUtils.insertSoftNewline(editorState));
+            this.onChange(RichUtils.insertSoftNewline(editorState));
         } else {
             let content = editorState.getCurrentContent();
             let newContent = Modifier.removeRange(content, selection, 'forward');
@@ -54,7 +57,7 @@ export function handleReturnSoftNewline(event:Object):boolean {
                 block.getInlineStyleAt(newSelection.getStartOffset()),
                 null
             );
-            onChange(
+            this.onChange(
                 EditorState.push(editorState, newContent, 'insert-fragment')
             );
         }
@@ -77,7 +80,7 @@ export function handleReturnEmptyListItem():boolean {
             let newState = (depth === 0) ?
                 changeBlockType(editorState, blockKey, BLOCK_TYPE.UNSTYLED) :
                 changeBlockDepth(editorState, blockKey, depth - 1);
-           onChange(newState);
+            this.onChange(newState);
             return true;
         }
     }
@@ -101,7 +104,7 @@ export function handleReturnSpecialBlock():boolean {
                     blockKey,
                     BLOCK_TYPE.UNSTYLED
                 );
-                onChange(newEditorState);
+                this.onChange(newEditorState);
                 return true;
             }
         }
@@ -113,7 +116,7 @@ export function onTab(event:Object) {
     let editorState = this.props.value.getEditorState.bind(this);
     let newEditorState = RichUtils.onTab(event, editorState, MAX_LIST_DEPTH);
     if (newEditorState !== editorState) {
-        onChange(newEditorState);
+        this.onChange(newEditorState);
     }
 }
 
@@ -132,18 +135,10 @@ export function handleKeyCommand(command:string):boolean {
     let editorState = this.props.value.getEditorState();
     let newEditorState = RichUtils.handleKeyCommand(editorState, command);
     if (newEditorState) {
-       onChange(newEditorState);
+        this.onChange(newEditorState);
         return true;
     } else {
         return false;
-    }
-}
-
-export function onChange(editorState:EditorState) {
-    let {onChange,value } = this.props;
-    if (onChange != null) {
-        let newValue = value.setEditorState(editorState);
-        onChange(newValue);
     }
 }
 
@@ -165,4 +160,19 @@ export function getBlockStyle(block: ContentBlock): string {
     }
 }
 
+export function onChange(editorState:EditorState) {
+    let {onChange,value } = this.props;
+    if (onChange != null) {
+        let newValue = value.setEditorState(editorState);
+        onChange(newValue);
+    }
+}
+
+export function createEmptyValue(): EditorValue {
+    return EditorValue.createEmpty(decorator);
+}
+
+export function createValueFromString(markup: string, format: string): EditorValue {
+    return EditorValue.createFromString(markup, format, decorator);
+}
 

@@ -8,19 +8,8 @@ import LinkDecorator from './lib/LinkDecorator';
 import EditorToolbar from './lib/EditorToolbar';
 import {EventEmitter} from 'events';
 import ImageComponent from './lib/ImageComponent';
-import {
-    shouldHidePlaceholder,
-    handleReturn,
-    handleReturnSoftNewline,
-    handleReturnEmptyListItem,
-    handleReturnSpecialBlock,
-    onTab,
-    customKeyHandler,
-    handleKeyCommand,
-    onChange,
-    focus,
-    getBlockStyle} from './functions/RichTextEditorFunctions';
-
+import {shouldHidePlaceholder, handleReturn, handleReturnSoftNewline,handleReturnEmptyListItem,handleReturnSpecialBlock, onTab,
+    customKeyHandler, handleKeyCommand,onChange,focus,getBlockStyle,createEmptyValue,createValueFromString} from './functions/RichTextEditorFunctions';
 
 const MAX_LIST_DEPTH = 2;
 
@@ -29,30 +18,32 @@ var ChangeHandler = (value: EditorValue) => any;
 let Props = {
     onChange : ChangeHandler,
 }
-
 export default class RichTextEditor extends Component {
     props:Props;
 
     constructor() {
         super(...arguments);
         this._keyEmitter = new EventEmitter();
-        this._shouldHidePlaceholder = shouldHidePlaceholder.bind(this);
-        this._handleReturn = handleReturn.bind(this);
-        this._handleReturnSoftNewline = handleReturnSoftNewline.bind(this);
-        this._handleReturnEmptyListItem = handleReturnEmptyListItem.bind(this);
-        this._handleReturnSpecialBlock = handleReturnSpecialBlock.bind(this);
-        this._onTab = onTab.bind(this);
-        this._customKeyHandler = customKeyHandler.bind(this);
-        this._handleKeyCommand = handleKeyCommand.bind(this);
-        this._onChange = onChange.bind(this);
-        this._focus = focus.bind(this);
-        this._getBlockStyle = getBlockStyle.bind(this);
+        this.onChange = onChange.bind(this);
+        this.shouldHidePlaceholder = shouldHidePlaceholder.bind(this);
+        this.handleReturn = handleReturn.bind(this);
+        this.handleReturnSoftNewline = handleReturnSoftNewline.bind(this);
+        this.handleReturnEmptyListItem = handleReturnEmptyListItem.bind(this);
+        this.handleReturnSpecialBlock = handleReturnSpecialBlock.bind(this);
+        this.onTab = onTab.bind(this);
+        this.customKeyHandler = customKeyHandler.bind(this);
+        this.handleKeyCommand = handleKeyCommand.bind(this);
+        this.focus = focus.bind(this);
+        this.getBlockStyle = getBlockStyle.bind(this);
+        this.createEmptyValue = createEmptyValue.bind(this);
+        this.createValueFromString = createValueFromString.bind(this);
     }
 
     render():React.Element {
         let {props} = this;
         let {richTextEditorStyles} = props;
         let editorState = props.value.getEditorState();
+
 
         let placeholder = props.placeholder ? props.placeholder : '';
         // If the user changes block type before entering any text, we can either
@@ -63,21 +54,21 @@ export default class RichTextEditor extends Component {
                 <EditorToolbar className="toolbar"
                                keyEmitter={this._keyEmitter}
                                editorState={editorState}
-                               onChange={this._onChange}
-                               focusEditor={this._focus}
+                               onChange={this.onChange}
+                               focusEditor={this.focus}
                 />
 
                 <div style={richTextEditorStyles.editor}>
                     <Editor
                         blockRendererFn={this.blockRenderer}
-                        blockStyleFn={this._getBlockStyle}
+                        blockStyleFn={this.getBlockStyle}
                         customStyleMap={styleMap}
                         editorState={editorState}
-                        handleReturn={this._handleReturn}
-                        keyBindingFn={this._customKeyHandler}
-                        handleKeyCommand={this._handleKeyCommand}
-                        onTab={this._onTab}
-                        onChange={this._onChange}
+                        handleReturn={this.handleReturn}
+                        keyBindingFn={this.customKeyHandler}
+                        handleKeyCommand={this.handleKeyCommand}
+                        onTab={this.onTab}
+                        onChange={this.onChange}
                         placeholder={placeholder}
                         ref="editor"
                         spellCheck={true}
@@ -98,14 +89,6 @@ export default class RichTextEditor extends Component {
 }
 
 const decorator = new CompositeDecorator([LinkDecorator]);
-
-function createEmptyValue(): EditorValue {
-    return EditorValue.createEmpty(decorator);
-}
-
-function createValueFromString(markup: string, format: string): EditorValue {
-    return EditorValue.createFromString(markup, format, decorator);
-}
 
 export {EditorValue, decorator, createEmptyValue, createValueFromString};
 
