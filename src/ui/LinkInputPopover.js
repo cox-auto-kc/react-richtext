@@ -1,15 +1,16 @@
 import React, {Component, PropTypes} from 'react';
 //import { MASTER_EDITOR } from '../lib/EditorToolbarConfig'; //not currently needed as this is not controlled by config
 import {ENTITY_TYPE} from 'draft-js-utils';
+
 import {
-    setLink,
-    togglePopover,
-    closePopoverOnResize,
     toggleLink,
+    setLink,
     removeLink,
     updateLinkInputValue,
+    togglePopover,
+    isLinkingDisabled,
+    closePopoverOnResize,
     handleOnKeyPress,
-    getEntity,
 } from '../functions/editorMethods';
 
 import Button from './Button';
@@ -21,18 +22,18 @@ class LinkInputPopover extends Component {
 
         this.state ={
             showPopover: false,
-            popoverBasis: {'left': 0},
+            popoverBasis: {},
             inputRef: '',
         };
 
-        this.togglePopover = togglePopover.bind(this);
-        this.closePopoverOnResize = closePopoverOnResize.bind(this);
-        this.setLink = setLink.bind(this);
         this.toggleLink = toggleLink.bind(this);
+        this.setLink = setLink.bind(this);
         this.removeLink = removeLink.bind(this);
         this.updateLinkInputValue = updateLinkInputValue.bind(this);
+        this.togglePopover = togglePopover.bind(this);
+        this.isLinkingDisabled = isLinkingDisabled.bind(this);
 
-        this.getEntity = getEntity.bind(this);
+        this.closePopoverOnResize = closePopoverOnResize.bind(this);
         this.handleOnKeyPress = handleOnKeyPress.bind(this, this.setLink);
     }
 
@@ -48,6 +49,7 @@ class LinkInputPopover extends Component {
     renderPopover() {
         let { popoverLinkStyles } = this.props;
         let { popoverBasis } = this.state;
+
 
         return (
             <div>
@@ -91,17 +93,14 @@ class LinkInputPopover extends Component {
         let {
             popoverLinkStyles,
             label,
-            entityLink
+            editorState,
             } = this.props;
 
-        let selection = this.props.editorState.getSelection();
-        let hasSelection = !selection.isCollapsed();
-        let entity = this.getEntity();
-        let isCursorOnLink = (entity != null && entity.type === entityLink.LINK);
-        let shouldShowLinkButton = hasSelection || isCursorOnLink;
+        let getButtons = this.isLinkingDisabled();
+        let isLinkDisabled = !getButtons[0];
+        let isRemoveLinkDisabled = !getButtons[1];
 
         let renderPopover = (this.state.showPopover) ? this.renderPopover(): null;
-
         return (
             <div style={styles.buttongroup}>
                 <div style={popoverLinkStyles.baseContainer}>
@@ -109,7 +108,7 @@ class LinkInputPopover extends Component {
                     <div style={popoverLinkStyles.basePopoverTrigger}>
                         <Button
                             label={label}
-                            isDisabled={!shouldShowLinkButton}
+                            isDisabled={isLinkDisabled}
                             onClick={this.toggleLink}
                         >
                             {renderPopover}
@@ -118,7 +117,7 @@ class LinkInputPopover extends Component {
                     <div style={popoverLinkStyles.basePopoverTrigger}>
                         <Button
                             label="Remove Link"
-                            isDisabled={!isCursorOnLink}
+                            isDisabled={isRemoveLinkDisabled}
                             onClick={this.removeLink}
                         />
                     </div>

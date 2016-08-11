@@ -84,10 +84,15 @@ export function removeLink() {
     this.setState({inputRef: ''});
 }
 
-export function getEntity() {
+export function isLinkingDisabled(){
     let {editorState} = this.props;
+    let selection = editorState.getSelection();
+    let hasSelection = !selection.isCollapsed();
     let entity = getEntityAtCursor(editorState);
-    return (entity == null) ? null : Entity.get(entity.entityKey);
+    let isCursorOnLink = (entity != null);
+    let shouldShowLinkButton = hasSelection || isCursorOnLink;
+
+    return [shouldShowLinkButton, isCursorOnLink];
 }
 
 export function toggleColorsTrigger(key, event){
@@ -167,10 +172,10 @@ export function insertImage(file) {
     ));
 }
 
-export function setPopoverPlacement(e){
+export function setPopoverPlacement(event){
     let thisWidth = window.innerWidth;
-    let fromRight = thisWidth - e.clientX;
-    let fromLeft = e.clientX;
+    let fromRight = thisWidth - event.clientX;
+    let fromLeft = event.clientX;
     let popMaxWidth = 300;
 
     let popoverPlacement = (fromRight < popMaxWidth && fromLeft < popMaxWidth)? {'left': 0, 'maxWidth': thisWidth, 'position': 'fixed'} :

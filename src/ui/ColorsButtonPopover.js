@@ -3,13 +3,11 @@ import React, {Component, PropTypes} from 'react';
 import { MASTER_EDITOR } from '../lib/EditorToolbarConfig';
 import {
     getFuncName,
-    getEntity,
-    togglePopover,
-    closePopoverOnResize,
     toggleColorsTrigger,
     toggleInlineColorsStyle,
     toggleFillColorsStyle,
-    toggleshowColorInput
+    togglePopover,
+    closePopoverOnResize
 } from '../functions/editorMethods';
 
 import Button from './Button';
@@ -29,12 +27,14 @@ class ColorsButtonPopover extends Component {
         };
 
         this.getFuncName = getFuncName.bind(this);
-        this.getEntityAtCursor = getEntity.bind(this);
         this.togglePopover = togglePopover.bind(this);
-        this.closePopoverOnResize = closePopoverOnResize.bind(this);
+
+
         this.toggleColorsTrigger = toggleColorsTrigger.bind(this);
         this.toggleFillColorsStyle = toggleFillColorsStyle.bind(this);
         this.toggleInlineColorsStyle = toggleInlineColorsStyle.bind(this);
+
+        this.closePopoverOnResize = closePopoverOnResize.bind(this);
     }
 
     componentDidMount() {

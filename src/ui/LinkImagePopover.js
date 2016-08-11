@@ -2,14 +2,14 @@ import React, {Component, PropTypes} from 'react';
 
 //import { MASTER_EDITOR } from '../lib/EditorToolbarConfig'; //not currently needed as this is not controlled by config
 import {
+    toggleLink,
+    addImageLink,
+    updateLinkInputValue,
     togglePopover,
     closePopoverOnResize,
-    addImageLink,
-    toggleLink,
-    updateLinkInputValue,
     handleOnKeyPress,
-    getEntity,
 } from '../functions/editorMethods';
+
 import Button from './Button';
 import styles from '../../assets/styles';
 
@@ -18,19 +18,17 @@ class LinkImagePopover extends Component {
         super(props);
         this.state ={
             showPopover: false,
-            popoverBasis: {'left': 0},
+            popoverBasis: {},
             inputRef: '',
         };
 
-        this.getEntity = getEntity.bind(this);
-        this.togglePopover = togglePopover.bind(this);
-        this.closePopoverOnResize = closePopoverOnResize.bind(this);
         this.toggleLink = toggleLink.bind(this);
         this.addImageLink = addImageLink.bind(this);
         this.updateLinkInputValue = updateLinkInputValue.bind(this);
+        this.togglePopover = togglePopover.bind(this);
+
+        this.closePopoverOnResize = closePopoverOnResize.bind(this);
         this.handleOnKeyPress = handleOnKeyPress.bind(this, this.addImageLink);
-
-
     }
 
     componentDidMount() {
