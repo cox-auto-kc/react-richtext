@@ -1,6 +1,6 @@
 {
   "name": "react-richtext",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React Rich Text Editor",
   "main": "dist/react-rte.js",
   "scripts": {
