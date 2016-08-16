@@ -16,7 +16,7 @@ import {
     MASTER_EDITOR,
 } from '../lib/EditorToolbarConfig';
 
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 class BasicDropdowns extends Component {
 

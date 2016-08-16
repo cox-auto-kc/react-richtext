@@ -1,7 +1,7 @@
 import React, {Component,PropTypes} from 'react';
 import Button from './Button';
 import {undo,redo,} from '../functions/editorMethods';
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 class UndoRedo extends Component {
     constructor(props) {

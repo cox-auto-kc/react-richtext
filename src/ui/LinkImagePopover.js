@@ -11,7 +11,7 @@ import {
 } from '../functions/editorMethods';
 
 import Button from './Button';
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 class LinkImagePopover extends Component {
     constructor(props) {

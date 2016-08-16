@@ -20,7 +20,7 @@ import {IconAccept,
     IconAttachment,
     IconColorPallete} from './rte-icons/icons'
 
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 class Button extends Component{
 

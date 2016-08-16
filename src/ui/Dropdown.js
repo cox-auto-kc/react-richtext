@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {IconExpandMore} from './rte-icons/icons';
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 class Dropdown extends Component {
     constructor(props) {

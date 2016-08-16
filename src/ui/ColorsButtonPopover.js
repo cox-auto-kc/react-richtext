@@ -12,7 +12,7 @@ import {
 
 import Button from './Button';
 
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 
 class ColorsButtonPopover extends Component {
@@ -28,7 +28,6 @@ class ColorsButtonPopover extends Component {
 
         this.getFuncName = getFuncName.bind(this);
         this.togglePopover = togglePopover.bind(this);
-
 
         this.toggleColorsTrigger = toggleColorsTrigger.bind(this);
         this.toggleFillColorsStyle = toggleFillColorsStyle.bind(this);

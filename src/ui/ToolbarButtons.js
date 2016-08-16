@@ -13,7 +13,7 @@ import {
 } from './../lib/EditorToolbarConfig';
 
 import Button from './Button';
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 class ToolbarButtons extends Component{
     constructor(props) {

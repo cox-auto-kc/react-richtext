@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {CompositeDecorator, Editor, EditorState, Modifier, RichUtils, AtomicBlockUtils, ContentState} from 'draft-js';
-import styles from '../assets/styles';
-import styleMap from '../assets/styleMap';
+import styles from './assets/styles';
+import styleMap from './assets/styleMap';
 import {ContentBlock} from 'draft-js';
 import EditorValue from './lib/EditorValue';
 import LinkDecorator from './lib/LinkDecorator';

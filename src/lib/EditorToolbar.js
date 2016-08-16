@@ -12,7 +12,7 @@ import BasicDropdowns from '../ui/BasicDropdowns';
 import UndoRedo from '../ui/UndoRedo';
 import LocalImageUpload from '../ui/LocalImageUpload';
 
-import styles from '../../assets/styles';
+import styles from '../assets/styles';
 
 export default class EditorToolbar extends Component {
     constructor(props) {
