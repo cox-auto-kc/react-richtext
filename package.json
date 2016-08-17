@@ -1,6 +1,6 @@
 {
   "name": "react-richtext",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React Rich Text Editor",
   "main": "dist/react-rte.js",
   "scripts": {
@@ -23,11 +23,11 @@
     "draft-js-import-markdown": "0.1.4",
     "draft-js-utils": "0.1.4",
     "immutable": "3.8.1",
-    "react": "15.0.2",
-    "react-bootstrap": "0.29.4",
-    "react-dom": "15.0.2"
+    "react-bootstrap": "0.29.4"
   },
   "devDependencies": {
+    "react": "15.0.2",
+    "react-dom": "15.0.2",
     "babel-cli": "6.8.0",
     "babel-core": "6.8.0",
     "babel-eslint": "6.0.4",
