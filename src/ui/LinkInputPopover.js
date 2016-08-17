@@ -54,14 +54,14 @@ class LinkInputPopover extends Component {
         return (
             <div>
                 <form
-                    style={Object.assign({}, popoverBasis, {border: '1px solid '+ this.props.customColor}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
+                    style={Object.assign({}, popoverBasis, {border: '1px solid '}, popoverLinkStyles.popoverContainer, popoverLinkStyles.basePopoverContainer)}
 
                 >
                     <div style={popoverLinkStyles.inner}>
                         <input
                             type="text"
                             placeholder="https://example.com/"
-                            style={Object.assign({},{border: '1px solid'+ this.props.customColor}, popoverLinkStyles.input)}
+                            style={Object.assign({},{border: '1px solid'}, popoverLinkStyles.input)}
                             value={this.state.inputRef}
                             onChange={this.updateLinkInputValue}
                             onKeyPress={this.handleOnKeyPress}

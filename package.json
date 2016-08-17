@@ -1,6 +1,6 @@
 {
   "name": "react-richtext",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "React Rich Text Editor",
   "main": "dist/react-rte.js",
   "scripts": {
@@ -22,8 +22,7 @@
     "draft-js-import-html": "0.1.8",
     "draft-js-import-markdown": "0.1.4",
     "draft-js-utils": "0.1.4",
-    "immutable": "3.8.1",
-    "react-bootstrap": "0.29.4"
+    "immutable": "3.8.1"
   },
   "devDependencies": {
     "react": "15.0.2",

@@ -95,7 +95,6 @@ class Button extends Component{
               <button
                   title={label}
                   type={type}
-                  customColor={this.props.customColor}
                   onClick={OnClick}
                   style={Object.assign({}, thisStyle.button, buttonStyles.button, passedButtonStyles )}
               >
@@ -115,7 +114,6 @@ Button.propTypes ={
     label: PropTypes.string,
     className: PropTypes.string,
     isDisabled: PropTypes.bool,
-    customColor: PropTypes.string,
     onToggle: PropTypes.func,
     focusOnClick: PropTypes.bool,
     onClick: PropTypes.func,

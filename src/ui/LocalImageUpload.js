@@ -28,7 +28,6 @@ class LocalImageUpload extends Component {
                     label= {label}
                     selected ={blockType}
                     onClick={this.uploadImage}
-                    customColor={this.props.customColor}
                 />
             </span>
         );

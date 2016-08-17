@@ -53,7 +53,6 @@ class ToolbarButtons extends Component{
                         onToggle={toggleStyles}
                         styles={type.style}
                         label={type.label}
-                        customColor={''}
                     />
                 ));
 

@@ -48,7 +48,6 @@ class ColorsButtonPopover extends Component {
         let {
             popoverColorsSrc,
             popoverColorsStyles,
-            customColor
         } = this.props;
 
         let {
@@ -66,7 +65,7 @@ class ColorsButtonPopover extends Component {
 
         return (
             <div>
-                <div style={Object.assign({}, popoverBasis, {borderColor: customColor}, popoverColorsStyles.popoverContainer, popoverColorsStyles.basePopoverContainer )}>
+                <div style={Object.assign({}, popoverBasis, popoverColorsStyles.popoverContainer, popoverColorsStyles.basePopoverContainer )}>
                     {renderDisplayLabel}
                     <div style={popoverColorsStyles.basePopoverLabel}>
                         {renderColorsButtons }
@@ -115,7 +114,6 @@ class ColorsButtonPopover extends Component {
         let {
             popoverColorsSrc,
             popoverColorsStyles,
-            customColor
         } = this.props;
 
         let triggerButtons = popoverColorsSrc.map(function(v, key){
@@ -128,7 +126,6 @@ class ColorsButtonPopover extends Component {
                     <Button
                         label={v.label}
                         onClick={toggleMethod}
-                        customColor={customColor}
                     />
                     {renderPopover}
                 </div>
@@ -159,7 +156,6 @@ ColorsButtonPopover.PropTypes ={
     popoverColorsStyles: PropTypes.object,
     editorState: PropTypes.object,
     onChange: PropTypes.object,
-    customColor: PropTypes.string,
 };
 
 ColorsButtonPopover.defaultProps = {
